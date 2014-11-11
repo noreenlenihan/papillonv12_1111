@@ -2,6 +2,11 @@ package shiro_test
 
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.subject.Subject
+import resource.DataCenter
+import resource.Floor
+import resource.Rack
+import resource.Host
+import resource.PowerStamp
 
 class DashboardController {
 
@@ -10,10 +15,29 @@ class DashboardController {
 		def currentUser = SecurityUtils.getSubject()
 		currentUser = currentUser.getPrincipal()
 		def centerInstance = Cost_Center.list()
+
+		ArrayList<Floor> array = new ArrayList<Floor>();
+		array.add(1);
+		DataCenter dc = new DataCenter(array,1,"servy1","itsme", 0.00, 0.00);
+		ArrayList<DataCenter> stat = dc.createDataCenter();
+		//int stat1 = 5;
+
+		Float averagePowerPerServer = 0;
+		Float totalPowerPerServer = 0;
+		for(DataCenter s: stat){
+			for(Floor f: s.getFloors()){
+				for(Rack rk: f.getRacks()){
+					for(Host h: rk.getHosts()){
+						for(PowerStamp ps: h.getPowerstamps()){
+							averagePowerPerServer += ps.getAveragePower()
+							totalPowerPerServer += ps.getTotalPower()
+						}
+					}
+				}
+			}
+		}
 		
-		
-	
-		[centerInstanceList: centerInstance, User: currentUser]
+		[centerInstanceList: centerInstance, User: currentUser, avgpower: averagePowerPerServer, totalpower: totalPowerPerServer]
 	
     }
 }

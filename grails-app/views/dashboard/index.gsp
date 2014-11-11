@@ -32,8 +32,8 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Est. Spending'],
-                ['1',  100,      120],
+                ['Month', 'Est. Budget', 'Average power per server'],
+                ['1',  100,      ${avgpower}],
                 ['2',  200,      180],
                 ['3',  300,       250],
                 ['4',  400,      350],
@@ -62,8 +62,8 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Est. Spending'],
-                ['1',  100,      120],
+                ['Month', 'Est. Budget', 'Average Power per Server'],
+                ['1',  100,      ${avgpower}],
                 ['2',  200,      180],
                 ['3',  300,       250],
                 ['4',  400,      350],
@@ -176,7 +176,6 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid">
     <div class="row">
         <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
@@ -226,7 +225,7 @@
                 <tr>
                     <td>College of Science</td>
                     <td>Lorem</td>
-                    <td>123</td>
+                    <td>${totalpower}</td>
                     <td>100</td>
                     <td>100</td>
                 </tr>
