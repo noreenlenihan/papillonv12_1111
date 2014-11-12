@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<gvisualization:apiImport/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,21 +122,20 @@
         google.load("visualization", "1", {packages:["corechart"]});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Est. Spending'],
-                ['1',  100,      120],
-                ['2',  200,      180],
-                ['3',  300,       250],
-                ['4',  400,      350],
-                ['5',  500,      490],
-                ['6',  600,      570],
-                ['7',  800,      830],
-                ['8',  1000,      930],
-                ['9',  1400,      1250],
-                ['10',  1550,      1350],
-                ['11',  1700,      1500],
-                ['12',  1800,      1600]
-            ]);
+
+	    
+            var data = google.visualization.arrayToDataTable();
+
+	    var time = ${timestamps};
+	    var power = ${powerratings};
+	    data.addColumn('number', 'time');
+	    data.addColumn('number', 'power');
+
+	    for(i = 0; i < ${timestamplength}; i++){
+		data.addRow([time[i], power[i]]);
+	    }
+
+
             var options = {
                 title: 'Daily Projection',
                 'chartArea': {'width': '70%', 'height': '80%'}
@@ -146,6 +146,15 @@
             chart.draw(data, options);
         }
     </script>
+
+	<%
+   def myDailyActivitiesColumns = [['number', 'time'], ['number', 'power']]
+   
+   def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
+
+%>
+<gvisualization:lineCoreChart elementId="linechart" title="Daily Consumption" width="${900}" height="${500}" 
+ columns="${myDailyActivitiesColumns}" data="${graphData}" />
 
 </head>
 
@@ -423,10 +432,14 @@
         </div>
         <div class="row placeholders">
 
-            <div id="chart_div_daily" style="width: 1000px; height: 500px;"></div>
+<div id="linechart"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
+	for(i = 0; i < ${timestamplength}; i++){
+		data.addRow([${timestamps}[i], ${powerratings}[i]]);
+	    }
+
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

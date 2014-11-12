@@ -2,6 +2,7 @@ package resource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import org.codehaus.groovy.grails.web.json.JSONArray;
 import org.codehaus.groovy.grails.web.json.JSONException;
@@ -12,7 +13,7 @@ import connectionpackage.Connection;
 //create one connection and use that connection for all calls
 public class Host {
 
-	HashMap<String, HashMap<Long, Double>> powerRatings;
+	HashMap<String, TreeMap<Long, Double>> powerRatings;
 	int hostId;
 	int rackId;
 	int floorId;
@@ -35,7 +36,7 @@ public class Host {
 			this.floorId = floorId;
 			this.dataCenterId = datacenterId;
 			this.setTrackerId();
-			this.URL = "datacenters/" + dataCenterId + "/floors" +
+			this.URL = "datacenters/" + dataCenterId + "/floors/" +
 				floorId + "/racks/" + rackId + "/hosts/" + hostId;
 			JSONObject hostResults = connect.connect(connect, this.URL);
 
@@ -43,7 +44,7 @@ public class Host {
 			this.setModelGroupId(hostResults.getInt("modelGroupId"));
 			this.setHostType(hostResults.getString("hostType"));
 			this.setIpAddress(hostResults.getString("IPAddress"));
-			powerRatings = new HashMap<String, HashMap<Long, Double>>();
+			powerRatings = new HashMap<String, TreeMap<Long, Double>>();
 			this.powerRatings = getPower(this.trackerId);			
 
 		} catch (Exception e){
@@ -51,7 +52,7 @@ public class Host {
 		}
 	}
 
-	public HashMap<String, HashMap<Long, Double>> getPower(String trackerId) {
+	public HashMap<String, TreeMap<Long, Double>> getPower(String trackerId) {
 		
 		try {
 			long startTime = (long) (System.currentTimeMillis() / 1000 - (1 *86400));
@@ -59,7 +60,7 @@ public class Host {
 			JSONArray powerList = connect.connectMulti(connect, this.URL +
 				"/power?starttime=" + startTime + "&endtime=" + endTime);
 
-			HashMap<Long, Double> values = new HashMap<Long, Double>();
+			TreeMap<Long, Double> values = new TreeMap<Long, Double>();
 			JSONArray ja = powerList.getJSONArray(0);
 			int i;
 			for (i = 0; i < ja.length(); i++){

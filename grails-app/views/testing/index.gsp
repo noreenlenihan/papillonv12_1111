@@ -62,6 +62,9 @@
       </div>
     </div>
     
-    trials ${test }
+    servers: ${servers }
+    timestamps: ${timestamps}
+    powerratings: ${powerratings}
+    results: ${results}
 	</body>
 </html>
