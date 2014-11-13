@@ -52,7 +52,7 @@
                 'chartArea': {'width': '70%', 'height': '80%'}
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_annual'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div_annual1'));
 
             chart.draw(data, options);
         }
@@ -82,7 +82,7 @@
                 'chartArea': {'width': '70%', 'height': '80%'}
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_monthly'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div_monthly1'));
 
             chart.draw(data, options);
         }
@@ -112,7 +112,7 @@
                 'chartArea': {'width': '70%', 'height': '80%'}
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_weekly'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div_weekly1'));
 
             chart.draw(data, options);
         }
@@ -148,13 +148,22 @@
     </script>
 
 	<%
-   def myDailyActivitiesColumns = [['number', 'time'], ['number', 'power']]
+   def myDailyActivitiesColumns = [['datetime', 'time'], ['number', 'power']]
    
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
 
 %>
-<gvisualization:lineCoreChart elementId="linechart" title="Daily Consumption" width="${600}" height="${500}" 
- columns="${myDailyActivitiesColumns}" data="${graphData}" />
+<gvisualization:lineCoreChart elementId="linechart" title="Daily Consumption" width="${900}" height="${500}" 
+ columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
+
+<gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
+ columns="${myDailyActivitiesColumns}" data="${weeklyGraphData}" />
+
+<gvisualization:lineCoreChart elementId="chart_div_monthly" title="Monthly Consumption" width="${900}" height="${500}" 
+ columns="${myDailyActivitiesColumns}" data="${monthlyGraphData}" />
+
+<gvisualization:lineCoreChart elementId="chart_div_annual" title="Annual Consumption" width="${900}" height="${500}" 
+ columns="${myDailyActivitiesColumns}" data="${annualGraphData}" />
 
 </head>
 
@@ -198,8 +207,8 @@
 
             <ul class="nav nav-sidebar">
                 <p class="sub-header" style="padding-left: 15px;padding-top:10px"><strong>Cost Centers</strong></p>
-                <g:each in="${centerInstanceList}">
-					<li><a href="/Shiro_test/cost_Center/show/${it.id }"> ${it.costCenterName} </a></li>
+                <g:each in="${costc_results}">
+					<li><a href="/Shiro_test/dashboard/index/${it.id }"> ${it.costCenterName} </a></li>
 				</g:each>
                 
 		
@@ -223,63 +232,24 @@
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Faculty</th>
-                    <th>Server</th>
-                    <th>Power Usage</th>
-                    <th>Annual Budget</th>
+                    <th>Host</th>
+                    <th>Avg Power</th>
+                    <th>Total Power</th>
+                    <th>Carbon Footprint</th>
                     <th>Projected Cost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>College of Science</td>
-                    <td>Lorem</td>
-                    <td>${totalpower}</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Human Sciences</td>
-                    <td>amet</td>
-                    <td>123</td>
-                    <td>100</td>
+                
+		<g:each in="${servers_needed}">
+		<tr>
+                    <td>${it}</td>
+                    <td>${it.rack}</td>
+                    <td>${it.floor}</td>
+                    <td>${it.location}</td>
                     <td>100</td>
                 </tr>
-                <tr>
-                    <td>College of Health Sciences</td>
-                    <td>Integer</td>
-                    <td>nec</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Engineering & Architecture</td>
-                    <td>libero</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Business & Law</td>
-                    <td>dapibus</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Arts & Celtic Studies</td>
-                    <td>Nulla</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td id="monthly">100</td>
-                </tr>
-                <tr>
-                    <td>College of Agriculture, Food Science and Veterinary Medicine</td>
-                    <td>nibh</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
+               </g:each>
 
                 </tbody>
             </table>
@@ -436,10 +406,15 @@
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-	for(i = 0; i < ${timestamplength}; i++){
-		data.addRow([${timestamps}[i], ${powerratings}[i]]);
-	    }
-
+	Users retrieved: ${user_results}
+	Cost centers retrieved: ${costc_results}
+	Cost center chosen: ${cost_center_chosen}
+	First cc redirect: ${first_cc}
+	Yesterday: ${yesterday}
+	Week ago: ${weekAgo}
+	Month ago: ${monthAgo}
+	Year ago: ${yearAgo}
+	Servers in this cost center: ${servers_included}
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

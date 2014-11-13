@@ -18,7 +18,7 @@ class Server {
     }
 	
 	String toString(){
-		return serverName + "  --> Floor:" + floor + " --> Rack: " + rack + " --> DC:" + location
+		return "dc1" + "fl1" +"rk1" + "ht1"
 	}
 }
 

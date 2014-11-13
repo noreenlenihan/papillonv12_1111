@@ -13,7 +13,7 @@ import connectionpackage.Connection;
 //create one connection and use that connection for all calls
 public class Host {
 
-	HashMap<String, TreeMap<Long, Double>> powerRatings;
+	HashMap<String, HashMap<Long, Double>> powerRatings;
 	int hostId;
 	int rackId;
 	int floorId;
@@ -44,7 +44,7 @@ public class Host {
 			this.setModelGroupId(hostResults.getInt("modelGroupId"));
 			this.setHostType(hostResults.getString("hostType"));
 			this.setIpAddress(hostResults.getString("IPAddress"));
-			powerRatings = new HashMap<String, TreeMap<Long, Double>>();
+			powerRatings = new HashMap<String, HashMap<Long, Double>>();
 			this.powerRatings = getPower(this.trackerId);			
 
 		} catch (Exception e){
@@ -52,7 +52,7 @@ public class Host {
 		}
 	}
 
-	public HashMap<String, TreeMap<Long, Double>> getPower(String trackerId) {
+	public HashMap<String, HashMap<Long, Double>> getPower(String trackerId) {
 		
 		try {
 			long startTime = (long) (System.currentTimeMillis() / 1000 - (1 *86400));
@@ -60,7 +60,7 @@ public class Host {
 			JSONArray powerList = connect.connectMulti(connect, this.URL +
 				"/power?starttime=" + startTime + "&endtime=" + endTime);
 
-			TreeMap<Long, Double> values = new TreeMap<Long, Double>();
+			HashMap<Long, Double> values = new HashMap<Long, Double>();
 			JSONArray ja = powerList.getJSONArray(0);
 			int i;
 			for (i = 0; i < ja.length(); i++){
