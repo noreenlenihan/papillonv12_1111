@@ -1,0 +1,22 @@
+package shiro_test
+
+class Cost_Center {
+	
+	String costCenterName
+	Long budget
+	Long centsPerKiloWatt
+	
+	static hasMany = [ users: User, permissions: String, servers: Server ]
+	
+
+    static constraints = {
+		
+		costCenterName()
+		budget()
+		centsPerKiloWatt()
+    }
+	
+	String toString(){
+		return costCenterName
+	}
+}

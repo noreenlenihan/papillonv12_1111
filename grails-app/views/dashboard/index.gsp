@@ -416,6 +416,7 @@
 	Year ago: ${yearAgo}
 	Servers in this cost center: ${servers_included}
 	Servers needed: ${servers_needed}
+	This Cost Center's cents pwe kw: ${costCenterCentsPerKw}
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

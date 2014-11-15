@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="noreen_kevin">
     <link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
     <title>Create Cost Centre</title>
 
@@ -24,6 +25,568 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
+	<style>
+	@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,900);
+	@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
+	@import url(http://fonts.googleapis.com/css?family=Exo:300,800);
+	* {
+	margin: 0px;
+	padding: 0px;
+	}
+	.cube {
+	position: relative;
+	width: 280px;
+	height: 37px;
+	margin-left: 420px;
+	margin-top:-75px;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-perspective: 400px;
+	-moz-perspective: 400px;
+	-ms-perspective: 400px;
+	-o-perspective: 400px;
+	perspective: 400px;
+	}
+	/* positions */
+	.a, .b, .c, .d, .a1, .b1, .c1, .d1, .a2, .b2, .c2, .d2, .a3, .b3, .c3, .d3, .a4, .b4, .c4, .d4, .a5, .b5, .c5, .d5, .a6, .b6, .c6, .d6, 
+.a7, .b7, .c7, .d7, .a8, .b8, .c8, .d8, .a9, .b9, .c9, .d9, .a10, .b10, .c10, .d10, .a11, .b11, .c11, .d11{
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	left: 0px;
+	z-index: 222;
+	}
+	.a:before, .b:before, .c:before, .d:before, .a:after, .b:after, .a1:before, .b1:before, .c1:before, .d1:before, .a1:after, .b1:after,
+.a2:before, .b2:before, .c2:before, .d2:before, .a2:after, .b2:after, .a3:before, .b3:before, .c3:before, .d3:before, .a3:after, .b3:after,
+.a4:before, .b4:before, .c4:before, .d4:before, .a4:after, .b4:after, .a5:before, .b5:before, .c5:before, .d5:before, .a5:after, .b5:after, 
+.a6:before, .b6:before, .c6:before, .d6:before, .a6:after, .b6:after, .a7:before, .b7:before, .c7:before, .d7:before, .a7:after, .b7:after,
+.a8:before, .b8:before, .c8:before, .d8:before, .a8:after, .b8:after, .a9:before, .b9:before, .c9:before, .d9:before, .a9:after, .b9:after,
+.a10:before, .b10:before, .c10:before, .d10:before, .a10:after, .b10:after, .a11:before, .b11:before, .c11:before, .d11:before, .a11:after, .b11:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 280px;
+	height: 43px;
+	}
+	.a:before, .b:before, .c:before, .d:before, .a1:before, .b1:before, .c1:before, .d1:before, 
+.a2:before, .b2:before, .c2:before, .d2:before, .a3:before, .b3:before, .c3:before, .d3:before, .a4:before, .b4:before, .c4:before, .d4:before,
+.a5:before, .b5:before, .c5:before, .d5:before, .a6:before, .b6:before, .c6:before, .d6:before, .a7:before, .b7:before, .c7:before, .d7:before,
+.a8:before, .b8:before, .c8:before, .d8:before, .a9:before, .b9:before, .c9:before, .d9:before, .a10:before, .b10:before, .c10:before, .d10:before,
+.a11:before, .b11:before, .c11:before, .d11:before {
+	z-index: 111;
+	}
+	.a:after, .b:after, .a1:before, .b1:before, .a2:before, .b2:before,.a3:before, .b3:before, .a4:before, .b4:before, .a5:before, .b5:before,
+.a6:before, .b6:before, .a7:before, .b7:before, .a8:before, .b8:before, .a9:before, .b9:before, .a10:before, .b10:before,
+.a11:before, .b11:before {
+	z-index: 333;
+	}
+	.b, .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11 {
+	top: 0px;
+	-webkit-transform: rotateX(75deg) translateY(-60px);
+	-moz-transform: rotateX(75deg) translateY(-60px);
+	-o-transform: rotateX(75deg) translateY(-60px);
+	-ms-transform: rotateX(75deg) translateY(-60px);
+	transform: rotateX(75deg) translateY(-60px);
+	-webkit-transform-origin: 0% 0%;
+	-moz-transform-origin: 0% 0%;
+	-o-transform-origin: 0% 0%;
+	-ms-transform-origin: 0% 0%;
+	transform-origin: 0% 0%;
+	}
+	.c, .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8, .c9, .c10, .c11 {
+	top: 1px;
+	-webkit-transform: rotateX(75deg);
+	-moz-transform: rotateX(75deg);
+	-o-transform: rotateX(75deg);
+	-ms-transform: rotateX(75deg);
+	transform: rotateX(75deg);
+	-webkit-transform-origin: 100% 100%;
+	-moz-transform-origin: 100% 100%;
+	-o-transform-origin: 100% 100%;
+	-ms-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+	}
+	.d, .d1, .d2, .d3, .d4, .d5, .d6, .d7, .d8, .d9, .d10, .d11 {
+	-webkit-transform: translateZ(-60px) translateY(-15px);
+	-moz-transform: translateZ(-60px) translateY(-15px);
+	-o-transform: translateZ(-60px) translateY(-15px);
+	-ms-transform: translateZ(-60px) translateY(-15px);
+	transform: translateZ(-60px) translateY(-15px);
+	}
+	/* colors */
+	.a, .b, .a1, .b1, .a2, .b2, .a3, .b3, .a4, .b4, .a5, .b5, .a6, .b6, .a7, .b7, .a8, .b8, .a9, .b9, .a10, .b10, .a11, .b11 {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(116,198,43,0.8)), to(rgba(116,198,43,0.8)));
+	background-image: -webkit-linear-gradient(top, rgba(116,198,43,0.8), rgba(116,198,43,0.8));
+	background-image: -moz-linear-gradient(top, rgba(116,198,43,0.8), rgba(116,198,43,0.8));
+	background-image: -o-linear-gradient(top, rgba(116,198,43,0.8), rgba(116,198,43,0.8));
+	background-image: linear-gradient(to bottom, rgba(116,198,43,0.8), rgba(116,198,43,0.8));
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: 0% 0%;
+	}
+	.c, .d, .c1, .d1, .c2, .d2, .c3, .d3, .c4, .d4, .c5, .d5, .c6, .d6, .c7, .d7, .c8, .d8, .c9, .d9, .c10, .d10, .c11, .d11 {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(116,198,43,0.5)), to(rgba(116,198,43,0.5)));
+	background-image: -webkit-linear-gradient(top, rgba(116,198,43,0.5), rgba(116,198,43,0.5));
+	background-image: -moz-linear-gradient(top, rgba(116,198,43,0.5), rgba(116,198,43,0.5));
+	background-image: -o-linear-gradient(top, rgba(116,198,43,0.5), rgba(116,198,43,0.5));
+	background-image: linear-gradient(to bottom, rgba(116,198,43,0.5), rgba(116,198,43,0.5));
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: 0% 0%;
+	}
+	.c:before, .c1:before, .c2:before, .c3:before, .c4:before, .c5:before, .c6:before, .c7:before, 
+.c8:before, .c9:before, .c10:before, .c11:before {
+	-webkit-box-shadow: 0px 30px 20px -20px rgba(0,0,0,0.4), 0px 40px 15px -15px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 30px 20px -20px rgba(0,0,0,0.4), 0px 40px 15px -15px rgba(0,0,0,0.25);
+	box-shadow: 0px 30px 20px -20px rgba(0,0,0,0.4), 0px 40px 15px -15px rgba(0,0,0,0.25);
+	}
+	.a:before, .b:before, .c:before, .d:before, .a1:before, .b1:before, .c1:before, .d1:before,
+.a2:before, .b2:before, .c2:before, .d2:before, .a3:before, .b3:before, .c3:before, .d3:before, .a4:before, .b4:before, .c4:before, .d4:before,
+.a5:before, .b5:before, .c5:before, .d5:before, .a6:before, .b6:before, .c6:before, .d6:before, .a7:before, .b7:before, .c7:before, .d7:before,
+.a8:before, .b8:before, .c8:before, .d8:before, .a9:before, .b9:before, .c9:before, .d9:before, .a10:before, .b10:before, .c10:before, .d10:before,
+.a11:before, .b11:before, .c11:before, .d11:before {
+	background-color: rgba(0,0,0,0.05);
+	}
+	.a:after, .a1:after, .a2:after, .a3:after, .a4:after, .a5:after, .a6:after, .a7:after, .a8:after, .a9:after, .a10:after, .a11:after {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.07)), to(rgba(0,0,0,0)));
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.07), rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0.07), rgba(0,0,0,0));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0.07), rgba(0,0,0,0));
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0.07), rgba(0,0,0,0));
+	}
+	.b:after, .b1:after, .b2:after, .b3:after, .b4:after, .b5:after, .b6:after, .b7:after, .b8:after, .b9:after, .b10:after, .b11:after {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.1)), to(rgba(255,255,255,0.25)));
+	background-image: -webkit-linear-gradient(top, rgba(255,255,255,0.1), rgba(255,255,255,0.25));
+	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.1), rgba(255,255,255,0.25));
+	background-image: -o-linear-gradient(top, rgba(255,255,255,0.1), rgba(255,255,255,0.25));
+	background-image: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.25));
+	}
+	/* jQuery stuff */
+	#slider-range-min1 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min2 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min3 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min4 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min5 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min6 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min7 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min8 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min9 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+	#slider-range-min10 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+
+	#slider-range-min11 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+
+	#slider-range-min12 {
+	position: absolute;
+	width: 94%;
+	left: 3%;
+	top: 15px;
+	margin: 0px;
+	z-index: 999;
+	}
+
+
+	.ui-slider {
+	height: 2px;
+	border: none;
+	background: rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0px 2px 2px rgba(255,255,255,0.25), inset 0px 1px 3px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 2px 2px rgba(255,255,255,0.25), inset 0px 1px 3px rgba(0,0,0,0.3);
+	box-shadow: 0px 2px 2px rgba(255,255,255,0.25), inset 0px 1px 3px rgba(0,0,0,0.3);
+	}
+	.ui-slider:before, .ui-slider:after {
+	content: 'IIIIIIIIIII';
+	position: absolute;
+	left: 2px;
+	width: 100%;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	color: rgba(0,0,0,0.3);
+	letter-spacing: 24px;
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.2);
+	}
+	.ui-slider:before {
+	top: -1.4rem;
+	}
+	.ui-slider:after {
+	bottom: -1.4rem;
+	}
+	.ui-slider-range {
+	background: transparent;
+	}
+	.ui-slider .ui-slider-handle {
+	top: -8px;
+	width: 26px;
+	height: 20px;
+	margin-left: -15px;
+	padding-left: 4px;
+	border: none;
+	background: rgba(255,255,255,0.7);
+	border-radius: 2px;
+	text-align: center;
+	font-family: 'Anonymous Pro', sans-serif;
+	font-size: 1.2rem;
+	line-height: 20px;
+	color: rgba(0,0,0,0.5);
+	text-decoration: none;
+	letter-spacing: 3px;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px rgba(255,255,255,1);
+	-webkit-box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+	box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+	}
+	.ui-slider .ui-slider-handle:focus {
+	outline: none;
+	}
+	/* typo */
+	h1 {
+	font-size: 2.7rem;
+	font-weight: 200;
+	color: rgba(0,0,0,0.6);
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+	}
+	p {
+	font-size: 1.2rem;
+	font-weight: 300;
+	line-height: 1.8rem;
+	color: rgba(0,0,0,0.8);
+	}
+	.credits a, .credits a1, .credits a2, .credits a3,  .credits a4,  .credits a5,  .credits a6,  .credits a7,  .credits a8,
+ .credits a9,  .credits a10,  .credits a11 {
+	position: relative;
+	display: inline-block;
+	color: #529e0e;
+	text-decoration: none;
+	}
+	.credits a:after, .credits a1:after, .credits a2:after, .credits a3:after, .credits a4:after, .credits a5:after,
+.credits a6:after, .credits a7:after, .credits a8:after, .credits a9:after, .credits a10:after, .credits a11:after {
+	content: '';
+	position: absolute;
+	left: -1.5%;
+	bottom: -1px;
+	width: 0%;
+	height: 1px;
+	background: #529e0e;
+	-webkit-transition: width 0.1s;
+	-moz-transition: width 0.1s;
+	-o-transition: width 0.1s;
+	transition: width 0.1s;
+	}
+	.credits a:hover::after, .credits a1:hover::after, .credits a2:hover::after, .credits a2:hover::after, .credits a3:hover::after,
+.credits a4:hover::after, .credits a5:hover::after, .credits a6:hover::after, .credits a7:hover::after, .credits a8:hover::after,
+.credits a9:hover::after, .credits a10:hover::after, .credits a11:hover::after {
+	width: 103%;
+	}
+	#amount1 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount1:focus {
+	outline: none;
+	}
+
+	#amount2 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount2:focus {
+	outline: none;
+	}
+
+	#amount3 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount3:focus {
+	outline: none;
+	}
+
+	#amount4 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount4:focus {
+	outline: none;
+	}
+
+	#amount5 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount5:focus {
+	outline: none;
+	}
+
+	#amount6 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount6:focus {
+	outline: none;
+	}
+
+	#amount7 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount7:focus {
+	outline: none;
+	}
+
+	#amount8 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount8:focus {
+	outline: none;
+	}
+
+	#amount9 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount9:focus {
+	outline: none;
+	}
+
+	#amount10 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount10:focus {
+	outline: none;
+	}
+
+	#amount11 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount11:focus {
+	outline: none;
+	}
+
+	#amount12 {
+	display:inline;
+	margin-right: 0px;
+	padding-bottom: 5rem;
+	text-align: left;
+	font-family: 'Exo', sans-serif;
+	font-weight: 800;
+	font-size: 2rem;
+	color: #529e0e;
+	background: transparent;
+	border: none;
+	}
+	#amount12:focus {
+	outline: none;
+	}
+
+	/* base */
+	#content {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding-top: 5rem;
+	text-align: center;
+	}
+	html, body {
+	/*height: 160%;*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.08)), to(rgba(0,0,0,0.05)));
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.08), rgba(0,0,0,0.05));
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0.08), rgba(0,0,0,0.05));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0.08), rgba(0,0,0,0.05));
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.05));
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: 0% 0%;
+	font-family: 'Source Sans Pro', sans-serif;
+	}
+	</style>
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -31,80 +594,85 @@
     <![endif]-->
 		<g:set var="entityName" value="${message(code: 'cost_Center.label', default: 'Cost_Center')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+	<!--load jQuery 1.6.1 -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<!-- load jQuery 1.10.3 -->
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script>
+		var $i = jQuery.noConflict();
 	    jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
 	        return this.each(function() {
 	            var select = this;
 	            var options = [];
-	            $(select).find('option').each(function() {
-	                options.push({value: $(this).val(), text: $(this).text()});
+	            $i(select).find('option').each(function() {
+	                options.push({value: $i(this).val(), text: $i(this).text()});
 	            });
-	            $(select).data('options', options);
-	            $(textbox).bind('change keyup', function() {
-	                var options = $(select).empty().data('options');
-	                var search = $.trim($(this).val());
+	            $i(select).data('options', options);
+	            $i(textbox).bind('change keyup', function() {
+	                var options = $i(select).empty().data('options');
+	                var search = $i.trim($(this).val());
 	                var regex = new RegExp(search,"gi");
 	              
-	                $.each(options, function(i) {
+	                $i.each(options, function(i) {
 	                    var option = options[i];
 	                    if(option.text.match(regex) !== null) {
-	                        $(select).append(
+	                        $i(select).append(
 	                           $('<option>').text(option.text).val(option.value)
 	                        );
 	                    }
 	                });
-	                if (selectSingleMatch === true && $(select).children().length === 1) {
-	                    $(select).children().get(0).selected = true;
+	                if (selectSingleMatch === true && $i(select).children().length === 1) {
+	                    $i(select).children().get(0).selected = true;
 	                }
 	            });            
 	        });
 	    };
 	
-	    $(function() {
-	        $('#select-from').filterByText($('#textbox'), true);
+	    $i(function() {
+	        $i('#select-from').filterByText($i('#textbox'), true);
 	    }); 
-	    $(function() {
-	        $('#select-from2').filterByText($('#textbox2'), true);
+	    $i(function() {
+	        $i('#select-from2').filterByText($i('#textbox2'), true);
 	    }); 
 	</script> 
 	<script>
-	$(document).ready(function() {
+	$i(document).ready(function() {
 		 
-	    $('#btn-add').click(function(){
-	        $('#select-from option:selected').each( function() {
-	                $('#select-to').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-add').click(function(){
+	        $i('#select-from option:selected').each( function() {
+	                $i('#select-to').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
-	    $('#btn-remove').click(function(){
-	        $('#select-to option:selected').each( function() {
-	            $('#select-from').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-remove').click(function(){
+	        $i('#select-to option:selected').each( function() {
+	            $i('#select-from').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
 	 
 	});
 	</script>
 	<script>
-	$(document).ready(function() {
+	$i(document).ready(function() {
 		 
-	    $('#btn-add2').click(function(){
-	        $('#select-from2 option:selected').each( function() {
-	                $('#select-to2').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-add2').click(function(){
+	        $i('#select-from2 option:selected').each( function() {
+	                $i('#select-to2').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
-	    $('#btn-remove2').click(function(){
-	        $('#select-to2 option:selected').each( function() {
-	            $('#select-from2').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-remove2').click(function(){
+	        $i('#select-to2 option:selected').each( function() {
+	            $i('#select-from2').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
 	 
 	});
 	</script>
+		
 	
     
 	</head>
@@ -168,4 +736,213 @@
 			
 		</div>
 	</body>
+
+<!-- load jQuery 1.10.2 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<!-- load jQuery 1.10.3 -->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+<script src="sizzle.min.js"></script>
+<script>
+	var $j = jQuery.noConflict();
+	$j(function(){
+	$j("#slider-range-min1").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount1").val(ui.value+"00");
+	$j(".a,.b,.c,.d").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount1").val($j("#slider-range-min1").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min2").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount2").val(ui.value+"00");
+	$j(".a1,.b1,.c1,.d1").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount2").val($j("#slider-range-min2").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min3").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount3").val(ui.value+"00");
+	$j(".a2,.b2,.c2,.d2").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount3").val($j("#slider-range-min3").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min4").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount4").val(ui.value+"00");
+	$j(".a3,.b3,.c3,.d3").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount4").val($j("#slider-range-min4").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min5").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount5").val(ui.value+"00");
+	$j(".a4,.b4,.c4,.d4").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount5").val($j("#slider-range-min5").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min6").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount6").val(ui.value+"00");
+	$j(".a5,.b5,.c5,.d5").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount6").val($j("#slider-range-min6").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min7").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount7").val(ui.value+"00");
+	$j(".a6,.b6,.c6,.d6").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount7").val($j("#slider-range-min7").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min8").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount8").val(ui.value+"00");
+	$j(".a7,.b7,.c7,.d7").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount8").val($j("#slider-range-min8").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min9").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount9").val(ui.value+"00");
+	$j(".a8,.b8,.c8,.d8").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount9").val($j("#slider-range-min9").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min10").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount10").val(ui.value+"00");
+	$j(".a9,.b9,.c9,.d9").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount10").val($j("#slider-range-min10").slider("value")+"00");
+	});
+	</script>
+
+<script>
+	$j(function(){
+	$j("#slider-range-min11").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount11").val(ui.value+"00");
+	$j(".a10,.b10,.c10,.d10").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount11").val($j("#slider-range-min11").slider("value")+"00");
+	});
+	</script>
+<script>
+	$j(function(){
+	$j("#slider-range-min12").slider({
+	range:"min",
+	value:50,
+	min:0,
+	max:100,
+	slide:function(event,ui){
+	$j("#amount12").val(ui.value+"00");
+	$j(".a11,.b11,.c11,.d11").width(ui.value+"%");
+	}
+	});
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount12").val($j("#slider-range-min12").slider("value")+"00");
+	});
+	</script>
 </html>

@@ -58,6 +58,8 @@ class DashboardController {
 
 			}
 
+			def costCenterCentsPerKw = cost_center_chosen.centsPerKiloWatt
+
 			ArrayList<Server> servers_needed = new ArrayList<Server>();
 			servers_needed.add(servers_included.get(0))
 
@@ -83,6 +85,8 @@ class DashboardController {
 								for(Iterator<Long> it = values.keySet().iterator(); it.hasNext();){
 									Long innerkey = it.next();
 									Double powervalue = values.get(innerkey);
+									//converting watts/hour to cents/kilowatts/hour
+									powervalue = (powervalue / 1000) * (costCenterCentsPerKw)
 									servers.add(key)
 									timestamps.add(innerkey)
 									powerratings.add(powervalue)
@@ -148,7 +152,7 @@ class DashboardController {
 
 
 			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, graphDataColumns: graphDataColumns, newts: timestampsformatted, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday,
-	weekAgo: weekAgo, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthlyGraphData, monthAgo: monthAgo, yearAgo: yearAgo, annualGraphData: annualGraphData, servers_included: servers_included, servers_needed: servers_needed]
+	weekAgo: weekAgo, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthlyGraphData, monthAgo: monthAgo, yearAgo: yearAgo, annualGraphData: annualGraphData, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw]
 
 		}
 		}

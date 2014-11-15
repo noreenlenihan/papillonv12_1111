@@ -95,6 +95,16 @@
 						<span class="property-value" aria-labelledby="budget-label"><g:fieldValue bean="${cost_CenterInstance}" field="budget"/></span>
 					
 				</li>
+
+				</g:if>
+
+				<g:if test="${cost_CenterInstance?.centsPerKiloWatt}">
+				<li class="fieldcontain">
+					<span id="centsPerKiloWatt-label" class="property-label"><g:message code="cost_Center.centsPerKiloWatt.label" default="Cents Per KiloWatt" /></span>
+					
+						<span class="property-value" aria-labelledby="centsPerKiloWatt-label"><g:fieldValue bean="${cost_CenterInstance}" field="centsPerKiloWatt"/></span>
+					
+				</li>
 				</g:if>
 			
 				<g:if test="${cost_CenterInstance?.permissions}">
