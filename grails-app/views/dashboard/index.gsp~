@@ -148,12 +148,12 @@
     </script>
 
 	<%
-   def myDailyActivitiesColumns = [['datetime', 'time'], ['number', 'power']]
+   def myDailyActivitiesColumns = [['datetime', 'time'], ['number', 'power cost estimate']]
    
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
 
 %>
-<gvisualization:lineCoreChart elementId="linechart" title="Daily Consumption" width="${900}" height="${500}" 
+<gvisualization:lineCoreChart elementId="linechart" title="Daily Power Expenditure" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
@@ -233,10 +233,10 @@
                 <thead>
                 <tr>
                     <th>Host</th>
-                    <th>Avg Power</th>
-                    <th>Total Power</th>
-                    <th>Carbon Footprint</th>
-                    <th>Projected Cost</th>
+                    <th>Avg Annual Power</th>
+                    <th>Total Annual Power</th>
+                    <th>Total Annual Carbon Footprint</th>
+                    <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -244,10 +244,10 @@
 		<g:each in="${servers_needed}">
 		<tr>
                     <td>${it}</td>
-                    <td>${it.rack}</td>
-                    <td>${it.floor}</td>
-                    <td>${it.location}</td>
-                    <td>100</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
                 </tr>
                </g:each>
 
@@ -267,63 +267,24 @@
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Faculty</th>
-                    <th>Server</th>
-                    <th>Power Usage</th>
-                    <th>Annual Budget</th>
-                    <th>Projected Cost</th>
+                    <th>Host</th>
+                    <th>Avg Annual Power</th>
+                    <th>Total Annual Power</th>
+                    <th>Total Annual Carbon Footprint</th>
+                    <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>College of Science</td>
-                    <td>Lorem</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
+                
+		<g:each in="${servers_needed}">
+		<tr>
+                    <td>${it}</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
                 </tr>
-                <tr>
-                    <td>College of Human Sciences</td>
-                    <td>amet</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Health Sciences</td>
-                    <td>Integer</td>
-                    <td>nec</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Engineering & Architecture</td>
-                    <td>libero</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Business & Law</td>
-                    <td>dapibus</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Arts & Celtic Studies</td>
-                    <td>Nulla</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td id="weekly">100</td>
-                </tr>
-                <tr>
-                    <td>College of Agriculture, Food Science and Veterinary Medicine</td>
-                    <td>nibh</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
+               </g:each>
 
                 </tbody>
             </table>
@@ -339,63 +300,24 @@
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Faculty</th>
-                    <th>Server</th>
-                    <th>Power Usage</th>
-                    <th>Annual Budget</th>
-                    <th>Projected Cost</th>
+                    <th>Host</th>
+                    <th>Avg Annual Power</th>
+                    <th>Total Annual Power</th>
+                    <th>Total Annual Carbon Footprint</th>
+                    <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>College of Science</td>
-                    <td>Lorem</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
+                
+		<g:each in="${servers_needed}">
+		<tr>
+                    <td>${it}</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
                 </tr>
-                <tr>
-                    <td>College of Human Sciences</td>
-                    <td>amet</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Health Sciences</td>
-                    <td>Integer</td>
-                    <td>nec</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Engineering & Architecture</td>
-                    <td>libero</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Business & Law</td>
-                    <td>dapibus</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Arts & Celtic Studies</td>
-                    <td>Nulla</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td id="daily">100</td>
-                </tr>
-                <tr>
-                    <td>College of Agriculture, Food Science and Veterinary Medicine</td>
-                    <td>nibh</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
+               </g:each>
 
                 </tbody>
             </table>
@@ -416,68 +338,31 @@
 	Year ago: ${yearAgo}
 	Servers in this cost center: ${servers_included}
 	Servers needed: ${servers_needed}
+	This Cost Center's cents pwe kw: ${costCenterCentsPerKw}
+	Daily Timestamps length: ${dailyTimestampsLength}
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Faculty</th>
-                    <th>Server</th>
-                    <th>Power Usage</th>
-                    <th>Annual Budget</th>
-                    <th>Projected Cost</th>
+                    <th>Host</th>
+                    <th>Total Daily Power (Kw)</th>
+                    <th>Total Daily cost (cents)</th>
+                    <th>KgCO2/Kwh (Daily)</th>
+                    <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>College of Science</td>
-                    <td>Lorem</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
+                
+		<g:each in="${servers_needed}">
+		<tr>
+                    <td>${it}</td>
+                    <td>${totalDailyPower}</td>
+                    <td>${totalDailyPowerCost}</td>
+                    <td>${totalDailyCarbon}</td>
+                    <td>n/a</td>
                 </tr>
-                <tr>
-                    <td>College of Human Sciences</td>
-                    <td>amet</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Health Sciences</td>
-                    <td>Integer</td>
-                    <td>nec</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Engineering & Architecture</td>
-                    <td>libero</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Business & Law</td>
-                    <td>dapibus</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Arts & Celtic Studies</td>
-                    <td>Nulla</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>College of Agriculture, Food Science and Veterinary Medicine</td>
-                    <td>nibh</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>100</td>
-                </tr>
+               </g:each>
 
                 </tbody>
             </table>

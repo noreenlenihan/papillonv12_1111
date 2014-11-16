@@ -14,6 +14,7 @@ import groovy.time.*
 import static java.util.Calendar.*
 import shiro_test.User
 import shiro_test.Cost_Center
+import java.lang.Math;
 
 class DashboardController {
 
@@ -70,6 +71,7 @@ class DashboardController {
 			DataCenters dcs = new DataCenters();
 
 			String results = "";
+			ArrayList<Double> totalDailyPowerConsumption = new ArrayList<Double>();
 			ArrayList<String> servers = new ArrayList<String>();
 			ArrayList<Long> timestamps = new ArrayList<Long>();
 			ArrayList<Double> powerratings = new ArrayList<Double>();
@@ -85,8 +87,9 @@ class DashboardController {
 								for(Iterator<Long> it = values.keySet().iterator(); it.hasNext();){
 									Long innerkey = it.next();
 									Double powervalue = values.get(innerkey);
-									//converting watts/hour to cents/kilowatts/hour
-									powervalue = (powervalue / 1000) * (costCenterCentsPerKw/60)
+									totalDailyPowerConsumption.add(powervalue/1000)
+									//converting watts/min to cents/kilowatts/hour
+									powervalue = powervalue/1000  * costCenterCentsPerKw
 									servers.add(key)
 									timestamps.add(innerkey)
 									powerratings.add(powervalue)
@@ -109,6 +112,9 @@ class DashboardController {
 
 
 			def dailyGraphData = []
+			Double totalDailyPower = 0;
+			Double totalDailyCarbon = 0;
+			Double totalDailyPowerCost = 0;
 			Date yesterday = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L);
 			def graphDataColumns = [['number', 'time'], ['number', 'power']]
 
@@ -117,8 +123,15 @@ class DashboardController {
 			
 				if(newDate > yesterday){
 					dailyGraphData.add([newDate, powerratings[i]])
+					totalDailyPowerCost += powerratings[i];
+					totalDailyPower += totalDailyPowerConsumption[i]
 				}
 			}
+			
+			
+			//metric taken from www.carbonindependent.org
+			totalDailyCarbon = 0.527 * totalDailyPowerConsumption;
+
 
 			def weeklyGraphData = []
 			Date weekAgo = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L * 7);
@@ -151,8 +164,7 @@ class DashboardController {
 			}
 
 
-			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, graphDataColumns: graphDataColumns, newts: timestampsformatted, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday,
-	weekAgo: weekAgo, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthlyGraphData, monthAgo: monthAgo, yearAgo: yearAgo, annualGraphData: annualGraphData, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw]
+			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, graphDataColumns: graphDataColumns, newts: timestampsformatted, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weekAgo: weekAgo, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthlyGraphData, monthAgo: monthAgo, yearAgo: yearAgo, annualGraphData: annualGraphData, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPowerConsumption * 10000000)/10000000]
 
 		}
 		}
