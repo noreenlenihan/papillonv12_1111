@@ -237,8 +237,8 @@
 		<g:message code="cost_Center.servers.label" default="Data Centers" />
 		<select id="textbox">
 		<option value=""></option>
-	    <option value="ZZZ">ZZZ</option>
-	    <option value="dc1">dc1</option>
+	    <option value="UCD">UCD</option>
+	    <option value="AIB">AIB</option>
 	    </select>
  	</label>
 </div>

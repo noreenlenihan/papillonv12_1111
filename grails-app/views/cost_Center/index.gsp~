@@ -83,7 +83,7 @@
 						<g:sortableColumn property="costCenterName" title="${message(code: 'cost_Center.costCenterName.label', default: 'Cost Center Name')}" />
 					
 						<g:sortableColumn property="budget" title="${message(code: 'cost_Center.budget.label', default: 'Budget')}" />
-					
+						<g:sortableColumn property="centsPerKiloWatt" title="${message(code: 'cost_Center.centsPerKiloWatt.label', default: 'Cents Per KiloWatt')}" />
 					</tr>
 				</thead>
 				<tbody>

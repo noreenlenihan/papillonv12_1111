@@ -148,7 +148,8 @@
     </script>
 
 	<%
-   def myDailyActivitiesColumns = [['datetime', 'time'], ['number', 'power cost (cents per Kw/hr)']]
+   def myDailyActivitiesColumns = [['datetime', 'Time'], ['number', 'Power cost (cents per Kw/hr)'], ['number', 'Budget']]
+   def dailyBudgetColumns = [['datetime', 'time'], ['number', 'Cents'], ['number', 'Budget']]
    
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
 
@@ -156,14 +157,26 @@
 <gvisualization:lineCoreChart elementId="linechart" title="Daily Power Expenditure" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
 
+<gvisualization:lineCoreChart elementId="budgetlinechart" title="Daily Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
+ columns="${dailyBudgetColumns}" data="${dailyBudgetData}" />
+
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${weeklyGraphData}" />
+
+<gvisualization:lineCoreChart elementId="chart_div_weekly_budget" title="Weekly Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
+ columns="${dailyBudgetColumns}" data="${weeklyBudgetData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_monthly" title="Monthly Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${monthlyGraphData}" />
 
+<gvisualization:lineCoreChart elementId="chart_div_monthly_budget" title="Monthly Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
+ columns="${dailyBudgetColumns}" data="${monthlyBudgetData}" />
+
 <gvisualization:lineCoreChart elementId="chart_div_annual" title="Annual Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${annualGraphData}" />
+
+<gvisualization:lineCoreChart elementId="chart_div_annual_budget" title="Annual Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
+ columns="${dailyBudgetColumns}" data="${annualBudgetData}" />
 
 </head>
 
@@ -223,6 +236,8 @@
         <div class="row placeholders">
 
             <div id="chart_div_annual" style="width: 1000px; height: 500px;"></div>
+
+	    <div id="chart_div_annual_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -233,8 +248,8 @@
                 <thead>
                 <tr>
                     <th>Host</th>
-                    <th>Avg Annual Power</th>
                     <th>Total Annual Power</th>
+                    <th>Total Annual Power Cost</th>
                     <th>Total Annual Carbon Footprint</th>
                     <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
@@ -244,9 +259,9 @@
 		<g:each in="${servers_needed}">
 		<tr>
                     <td>${it}</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
+                    <td>${totalAnnualPower}</td>
+                    <td>${totalAnnualPowerCost}</td>
+                    <td>${totalAnnualCarbon}</td>
                     <td>n/a</td>
                 </tr>
                </g:each>
@@ -259,6 +274,8 @@
         <div class="row placeholders">
 
             <div id="chart_div_monthly" style="width: 1000px; height: 500px;"></div>
+
+	    <div id="chart_div_monthly_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -268,9 +285,9 @@
                 <thead>
                 <tr>
                     <th>Host</th>
-                    <th>Avg Annual Power</th>
-                    <th>Total Annual Power</th>
-                    <th>Total Annual Carbon Footprint</th>
+                    <th>Total Monthly Power</th>
+                    <th>Total Monthly Power Cost</th>
+                    <th>Total Monthly Carbon Footprint</th>
                     <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
@@ -279,9 +296,9 @@
 		<g:each in="${servers_needed}">
 		<tr>
                     <td>${it}</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
+                    <td>${totalMonthlyPower}</td>
+                    <td>${totalMonthlyPowerCost}</td>
+                    <td>${totalMonthlyCarbon}</td>
                     <td>n/a</td>
                 </tr>
                </g:each>
@@ -292,6 +309,8 @@
         <div class="row placeholders">
 
             <div id="chart_div_weekly" style="width: 1000px; height: 500px;"></div>
+
+	    <div id="chart_div_weekly_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -301,9 +320,9 @@
                 <thead>
                 <tr>
                     <th>Host</th>
-                    <th>Avg Annual Power</th>
-                    <th>Total Annual Power</th>
-                    <th>Total Annual Carbon Footprint</th>
+                    <th>Total Weekly Power (Kw/h)</th>
+                    <th>Total Weekly Power Cost</th>
+                    <th>Total Weekly Carbon Footprint</th>
                     <th>Surplus(+)/Deficit(-) Cost</th>
                 </tr>
                 </thead>
@@ -312,9 +331,9 @@
 		<g:each in="${servers_needed}">
 		<tr>
                     <td>${it}</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
-                    <td>n/a</td>
+                    <td>${totalWeeklyPower}</td>
+                    <td>${totalWeeklyPowerCost}</td>
+                    <td>${totalWeeklyCarbon}</td>
                     <td>n/a</td>
                 </tr>
                </g:each>
@@ -325,6 +344,7 @@
         <div class="row placeholders">
 
 <div id="linechart"></div>
+<div id="budgetlinechart"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -340,6 +360,9 @@
 	Servers needed: ${servers_needed}
 	This Cost Center's cents pwe kw: ${costCenterCentsPerKw}
 	Daily Timestamps length: ${dailyTimestampsLength}
+	Days in month: ${daysInMonth}
+	Month: ${month}
+	month budget: ${monthBudget}
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

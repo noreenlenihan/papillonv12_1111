@@ -600,72 +600,73 @@
 	<!-- load jQuery 1.10.3 -->
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script>
+		var $i = jQuery.noConflict();
 	    jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
 	        return this.each(function() {
 	            var select = this;
 	            var options = [];
-	            $(select).find('option').each(function() {
-	                options.push({value: $(this).val(), text: $(this).text()});
+	            $i(select).find('option').each(function() {
+	                options.push({value: $i(this).val(), text: $i(this).text()});
 	            });
-	            $(select).data('options', options);
-	            $(textbox).bind('change keyup', function() {
-	                var options = $(select).empty().data('options');
-	                var search = $.trim($(this).val());
+	            $i(select).data('options', options);
+	            $i(textbox).bind('change keyup', function() {
+	                var options = $i(select).empty().data('options');
+	                var search = $i.trim($(this).val());
 	                var regex = new RegExp(search,"gi");
 	              
-	                $.each(options, function(i) {
+	                $i.each(options, function(i) {
 	                    var option = options[i];
 	                    if(option.text.match(regex) !== null) {
-	                        $(select).append(
+	                        $i(select).append(
 	                           $('<option>').text(option.text).val(option.value)
 	                        );
 	                    }
 	                });
-	                if (selectSingleMatch === true && $(select).children().length === 1) {
-	                    $(select).children().get(0).selected = true;
+	                if (selectSingleMatch === true && $i(select).children().length === 1) {
+	                    $i(select).children().get(0).selected = true;
 	                }
 	            });            
 	        });
 	    };
 	
-	    $(function() {
-	        $('#select-from').filterByText($('#textbox'), true);
+	    $i(function() {
+	        $i('#select-from').filterByText($i('#textbox'), true);
 	    }); 
-	    $(function() {
-	        $('#select-from2').filterByText($('#textbox2'), true);
+	    $i(function() {
+	        $i('#select-from2').filterByText($i('#textbox2'), true);
 	    }); 
 	</script> 
 	<script>
-	$(document).ready(function() {
+	$i(document).ready(function() {
 		 
-	    $('#btn-add').click(function(){
-	        $('#select-from option:selected').each( function() {
-	                $('#select-to').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-add').click(function(){
+	        $i('#select-from option:selected').each( function() {
+	                $i('#select-to').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
-	    $('#btn-remove').click(function(){
-	        $('#select-to option:selected').each( function() {
-	            $('#select-from').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-remove').click(function(){
+	        $i('#select-to option:selected').each( function() {
+	            $i('#select-from').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
 	 
 	});
 	</script>
 	<script>
-	$(document).ready(function() {
+	$i(document).ready(function() {
 		 
-	    $('#btn-add2').click(function(){
-	        $('#select-from2 option:selected').each( function() {
-	                $('#select-to2').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-add2').click(function(){
+	        $i('#select-from2 option:selected').each( function() {
+	                $i('#select-to2').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
-	    $('#btn-remove2').click(function(){
-	        $('#select-to2 option:selected').each( function() {
-	            $('#select-from2').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
-	            $(this).remove();
+	    $i('#btn-remove2').click(function(){
+	        $i('#select-to2 option:selected').each( function() {
+	            $i('#select-from2').append("<option value='"+$i(this).val()+"'>"+$i(this).text()+"</option>");
+	            $i(this).remove();
 	        });
 	    });
 	 
@@ -742,205 +743,206 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
 <script src="sizzle.min.js"></script>
 <script>
-	$(function(){
-	$("#slider-range-min1").slider({
+	var $j = jQuery.noConflict();
+	$j(function(){
+	$j("#slider-range-min1").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount1").val(ui.value+"00");
-	$(".a,.b,.c,.d").width(ui.value+"%");
+	$j("#amount1").val(ui.value+"00");
+	$j(".a,.b,.c,.d").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount1").val($("#slider-range-min1").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount1").val($j("#slider-range-min1").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min2").slider({
+	$j(function(){
+	$j("#slider-range-min2").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount2").val(ui.value+"00");
-	$(".a1,.b1,.c1,.d1").width(ui.value+"%");
+	$j("#amount2").val(ui.value+"00");
+	$j(".a1,.b1,.c1,.d1").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount2").val($("#slider-range-min2").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount2").val($j("#slider-range-min2").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min3").slider({
+	$j(function(){
+	$j("#slider-range-min3").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount3").val(ui.value+"00");
-	$(".a2,.b2,.c2,.d2").width(ui.value+"%");
+	$j("#amount3").val(ui.value+"00");
+	$j(".a2,.b2,.c2,.d2").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount3").val($("#slider-range-min3").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount3").val($j("#slider-range-min3").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min4").slider({
+	$j(function(){
+	$j("#slider-range-min4").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount4").val(ui.value+"00");
-	$(".a3,.b3,.c3,.d3").width(ui.value+"%");
+	$j("#amount4").val(ui.value+"00");
+	$j(".a3,.b3,.c3,.d3").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount4").val($("#slider-range-min4").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount4").val($j("#slider-range-min4").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min5").slider({
+	$j(function(){
+	$j("#slider-range-min5").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount5").val(ui.value+"00");
-	$(".a4,.b4,.c4,.d4").width(ui.value+"%");
+	$j("#amount5").val(ui.value+"00");
+	$j(".a4,.b4,.c4,.d4").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount5").val($("#slider-range-min5").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount5").val($j("#slider-range-min5").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min6").slider({
+	$j(function(){
+	$j("#slider-range-min6").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount6").val(ui.value+"00");
-	$(".a5,.b5,.c5,.d5").width(ui.value+"%");
+	$j("#amount6").val(ui.value+"00");
+	$j(".a5,.b5,.c5,.d5").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount6").val($("#slider-range-min6").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount6").val($j("#slider-range-min6").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min7").slider({
+	$j(function(){
+	$j("#slider-range-min7").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount7").val(ui.value+"00");
-	$(".a6,.b6,.c6,.d6").width(ui.value+"%");
+	$j("#amount7").val(ui.value+"00");
+	$j(".a6,.b6,.c6,.d6").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount7").val($("#slider-range-min7").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount7").val($j("#slider-range-min7").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min8").slider({
+	$j(function(){
+	$j("#slider-range-min8").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount8").val(ui.value+"00");
-	$(".a7,.b7,.c7,.d7").width(ui.value+"%");
+	$j("#amount8").val(ui.value+"00");
+	$j(".a7,.b7,.c7,.d7").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount8").val($("#slider-range-min8").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount8").val($j("#slider-range-min8").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min9").slider({
+	$j(function(){
+	$j("#slider-range-min9").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount9").val(ui.value+"00");
-	$(".a8,.b8,.c8,.d8").width(ui.value+"%");
+	$j("#amount9").val(ui.value+"00");
+	$j(".a8,.b8,.c8,.d8").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount9").val($("#slider-range-min9").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount9").val($j("#slider-range-min9").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min10").slider({
+	$j(function(){
+	$j("#slider-range-min10").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount10").val(ui.value+"00");
-	$(".a9,.b9,.c9,.d9").width(ui.value+"%");
+	$j("#amount10").val(ui.value+"00");
+	$j(".a9,.b9,.c9,.d9").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount10").val($("#slider-range-min10").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount10").val($j("#slider-range-min10").slider("value")+"00");
 	});
 	</script>
 
 <script>
-	$(function(){
-	$("#slider-range-min11").slider({
+	$j(function(){
+	$j("#slider-range-min11").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount11").val(ui.value+"00");
-	$(".a10,.b10,.c10,.d10").width(ui.value+"%");
+	$j("#amount11").val(ui.value+"00");
+	$j(".a10,.b10,.c10,.d10").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount11").val($("#slider-range-min11").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount11").val($j("#slider-range-min11").slider("value")+"00");
 	});
 	</script>
 <script>
-	$(function(){
-	$("#slider-range-min12").slider({
+	$j(function(){
+	$j("#slider-range-min12").slider({
 	range:"min",
 	value:50,
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$("#amount12").val(ui.value+"00");
-	$(".a11,.b11,.c11,.d11").width(ui.value+"%");
+	$j("#amount12").val(ui.value+"00");
+	$j(".a11,.b11,.c11,.d11").width(ui.value+"%");
 	}
 	});
-	$(".ui-slider-handle").text("<>");
-	$("#amount12").val($("#slider-range-min12").slider("value")+"00");
+	$j(".ui-slider-handle").text("<>");
+	$j("#amount12").val($j("#slider-range-min12").slider("value")+"00");
 	});
 	</script>
 </html>

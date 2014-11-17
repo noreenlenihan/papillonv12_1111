@@ -87,16 +87,6 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${cost_CenterInstance?.budget}">
-				<li class="fieldcontain">
-					<span id="budget-label" class="property-label"><g:message code="cost_Center.budget.label" default="Budget" /></span>
-					
-						<span class="property-value" aria-labelledby="budget-label"><g:fieldValue bean="${cost_CenterInstance}" field="budget"/></span>
-					
-				</li>
-
-				</g:if>
 
 				<g:if test="${cost_CenterInstance?.centsPerKiloWatt}">
 				<li class="fieldcontain">

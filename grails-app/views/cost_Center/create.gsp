@@ -751,12 +751,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount1").val(ui.value+"00");
+	$j("#amount1").val(ui.value);
 	$j(".a,.b,.c,.d").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount1").val($j("#slider-range-min1").slider("value")+"00");
+	$j("#amount1").val($j("#slider-range-min1").slider("value"));
 	});
 	</script>
 
@@ -768,12 +768,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount2").val(ui.value+"00");
+	$j("#amount2").val(ui.value);
 	$j(".a1,.b1,.c1,.d1").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount2").val($j("#slider-range-min2").slider("value")+"00");
+	$j("#amount2").val($j("#slider-range-min2").slider("value"));
 	});
 	</script>
 
@@ -785,12 +785,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount3").val(ui.value+"00");
+	$j("#amount3").val(ui.value);
 	$j(".a2,.b2,.c2,.d2").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount3").val($j("#slider-range-min3").slider("value")+"00");
+	$j("#amount3").val($j("#slider-range-min3").slider("value"));
 	});
 	</script>
 
@@ -802,12 +802,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount4").val(ui.value+"00");
+	$j("#amount4").val(ui.value);
 	$j(".a3,.b3,.c3,.d3").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount4").val($j("#slider-range-min4").slider("value")+"00");
+	$j("#amount4").val($j("#slider-range-min4").slider("value"));
 	});
 	</script>
 
@@ -819,12 +819,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount5").val(ui.value+"00");
+	$j("#amount5").val(ui.value);
 	$j(".a4,.b4,.c4,.d4").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount5").val($j("#slider-range-min5").slider("value")+"00");
+	$j("#amount5").val($j("#slider-range-min5").slider("value"));
 	});
 	</script>
 
@@ -836,12 +836,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount6").val(ui.value+"00");
+	$j("#amount6").val(ui.value);
 	$j(".a5,.b5,.c5,.d5").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount6").val($j("#slider-range-min6").slider("value")+"00");
+	$j("#amount6").val($j("#slider-range-min6").slider("value"));
 	});
 	</script>
 
@@ -853,12 +853,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount7").val(ui.value+"00");
+	$j("#amount7").val(ui.value);
 	$j(".a6,.b6,.c6,.d6").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount7").val($j("#slider-range-min7").slider("value")+"00");
+	$j("#amount7").val($j("#slider-range-min7").slider("value"));
 	});
 	</script>
 
@@ -870,12 +870,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount8").val(ui.value+"00");
+	$j("#amount8").val(ui.value);
 	$j(".a7,.b7,.c7,.d7").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount8").val($j("#slider-range-min8").slider("value")+"00");
+	$j("#amount8").val($j("#slider-range-min8").slider("value"));
 	});
 	</script>
 
@@ -887,12 +887,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount9").val(ui.value+"00");
+	$j("#amount9").val(ui.value);
 	$j(".a8,.b8,.c8,.d8").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount9").val($j("#slider-range-min9").slider("value")+"00");
+	$j("#amount9").val($j("#slider-range-min9").slider("value"));
 	});
 	</script>
 
@@ -904,12 +904,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount10").val(ui.value+"00");
+	$j("#amount10").val(ui.value);
 	$j(".a9,.b9,.c9,.d9").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount10").val($j("#slider-range-min10").slider("value")+"00");
+	$j("#amount10").val($j("#slider-range-min10").slider("value"));
 	});
 	</script>
 
@@ -921,12 +921,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount11").val(ui.value+"00");
+	$j("#amount11").val(ui.value);
 	$j(".a10,.b10,.c10,.d10").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount11").val($j("#slider-range-min11").slider("value")+"00");
+	$j("#amount11").val($j("#slider-range-min11").slider("value"));
 	});
 	</script>
 <script>
@@ -937,12 +937,12 @@
 	min:0,
 	max:100,
 	slide:function(event,ui){
-	$j("#amount12").val(ui.value+"00");
+	$j("#amount12").val(ui.value);
 	$j(".a11,.b11,.c11,.d11").width(ui.value+"%");
 	}
 	});
 	$j(".ui-slider-handle").text("<>");
-	$j("#amount12").val($j("#slider-range-min12").slider("value")+"00");
+	$j("#amount12").val($j("#slider-range-min12").slider("value"));
 	});
 	</script>
 </html>

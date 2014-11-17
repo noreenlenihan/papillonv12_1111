@@ -3,20 +3,19 @@ package shiro_test
 class Cost_Center {
 	
 	String costCenterName
-	Long budget
 	Long centsPerKiloWatt
-	Long janBudget
-	Long febBudget
-	Long marBudget
-	Long aprBudget
-	Long mayBudget
-	Long junBudget
-	Long julBudget
-	Long augBudget
-	Long septBudget
-	Long octBudget
-	Long novBudget
-	Long decBudget
+	Double janBudget
+	Double febBudget
+	Double marBudget
+	Double aprBudget
+	Double mayBudget
+	Double junBudget
+	Double julBudget
+	Double augBudget
+	Double septBudget
+	Double octBudget
+	Double novBudget
+	Double decBudget
 	
 	static hasMany = [ users: User, permissions: String, servers: Server ]
 	
@@ -24,7 +23,6 @@ class Cost_Center {
     static constraints = {
 		
 		costCenterName()
-		budget()
 		centsPerKiloWatt()
 		janBudget()
 		febBudget()
