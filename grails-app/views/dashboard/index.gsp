@@ -363,6 +363,8 @@
 	Days in month: ${daysInMonth}
 	Month: ${month}
 	month budget: ${monthBudget}
+	result1: ${res}
+
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

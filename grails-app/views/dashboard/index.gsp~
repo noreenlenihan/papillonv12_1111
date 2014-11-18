@@ -236,6 +236,8 @@
         <div class="row placeholders">
 
             <div id="chart_div_annual" style="width: 1000px; height: 500px;"></div>
+
+	    <div id="chart_div_annual_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -361,6 +363,7 @@
 	Days in month: ${daysInMonth}
 	Month: ${month}
 	month budget: ${monthBudget}
+	annual graph data: ${annualGraphData}
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

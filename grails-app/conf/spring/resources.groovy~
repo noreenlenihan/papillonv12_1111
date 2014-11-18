@@ -1,0 +1,7 @@
+import resource.Scheduler
+beans = {
+	scheduler(Scheduler){
+		shiro_test = ref("aggregationResultsService")
+	}
+
+}

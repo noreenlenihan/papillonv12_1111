@@ -16,10 +16,17 @@ import shiro_test.User
 import shiro_test.Cost_Center
 import java.lang.Math;
 import java.util.Collections.*;
+import resource.Scheduler
+import shiro_test.Result
+import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
+
 
 class DashboardController {
+    def aggregationResultsService 
 
     def index() { 
+		
 	
 		def currentUser = SecurityUtils.getSubject()
 		currentUser = currentUser.getPrincipal()
@@ -79,6 +86,8 @@ class DashboardController {
 
 			ArrayList<Server> servers_needed = new ArrayList<Server>();
 			servers_needed.add(servers_included.get(0))
+
+			aggregationResultsService.makeScheduledAPICall()
 
 			String [] arr = new String[1]
 

@@ -16,10 +16,17 @@ import shiro_test.User
 import shiro_test.Cost_Center
 import java.lang.Math;
 import java.util.Collections.*;
+import resource.Scheduler
+import shiro_test.Result
+import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
+
 
 class DashboardController {
+    def aggregationResultsService 
 
     def index() { 
+		
 	
 		def currentUser = SecurityUtils.getSubject()
 		currentUser = currentUser.getPrincipal()
@@ -79,6 +86,8 @@ class DashboardController {
 
 			ArrayList<Server> servers_needed = new ArrayList<Server>();
 			servers_needed.add(servers_included.get(0))
+
+			aggregationResultsService.makeScheduledAPICall()
 
 			String [] arr = new String[1]
 
@@ -256,7 +265,6 @@ class DashboardController {
 			int monthForAnnualGraph = 0;
 			double monthBudgetForAnnualGraph = 0;
 			Date yearAgo = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L * 365);
-			annualGraphData.add([yearAgo, 0, 0])
 			for(def i=timestamps.size() - 1; i > 0; i--){
 				Date newDate = new Date((long)timestamps[i]*1000);
 				calDateForAnnualGraph = dateToCalendar(newDate)
@@ -269,7 +277,6 @@ class DashboardController {
 				totalAnnualPower += allPowerConsumptionEntries[i]
 
 			}
-			annualGraphData.add([new Date(System.currentTimeMillis()), 0, 54.5])
 
 			totalAnnualCarbon = 0.527 * totalAnnualPower
 
@@ -287,7 +294,7 @@ class DashboardController {
 
 
 			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, graphDataColumns: graphDataColumns, newts: timestampsformatted, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weekAgo: weekAgo, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthlyGraphData, monthAgo: monthAgo, yearAgo: yearAgo, annualGraphData: annualGraphData, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, dailyBudgetData: dailyBudgetData, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: totalAnnualPowerCost,
-totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: weeklyBudgetData, monthlyBudgetData: monthlyBudgetData, annualBudgetData: annualBudgetData]
+totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: weeklyBudgetData, monthlyBudgetData: monthlyBudgetData, annualBudgetData: annualBudgetData, res: res]
 
 		}
 		}

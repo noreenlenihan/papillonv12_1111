@@ -55,7 +55,7 @@ public class Host {
 	public HashMap<String, HashMap<Long, Double>> getPower(String trackerId) {
 		
 		try {
-			long startTime = (long) (System.currentTimeMillis() / 1000 - (1 *31536000));
+			long startTime = (long) (System.currentTimeMillis() / 1000 - (1 *86400));
 			long endTime = System.currentTimeMillis() / 1000;
 			JSONArray powerList = connect.connectMulti(connect, this.URL +
 				"/power?starttime=" + startTime + "&endtime=" + endTime);
