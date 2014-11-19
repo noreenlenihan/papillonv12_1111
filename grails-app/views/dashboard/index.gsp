@@ -161,7 +161,7 @@
  columns="${dailyBudgetColumns}" data="${dailyBudgetData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
- columns="${myDailyActivitiesColumns}" data="${weeklyGraphData}" />
+ columns="${myDailyActivitiesColumns}" data="${weekresults}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly_budget" title="Weekly Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
  columns="${dailyBudgetColumns}" data="${weeklyBudgetData}" />
@@ -364,6 +364,7 @@
 	Month: ${month}
 	month budget: ${monthBudget}
 	result1: ${res}
+	weekResults: ${weekresults}
 
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">

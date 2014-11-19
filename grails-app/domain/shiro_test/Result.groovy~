@@ -3,7 +3,7 @@ package shiro_test
 class Result {
 	
 	Date dateOfQuery
-	Double dailyTotal
+	Double dailyTotalCents
 	Long metric_2
 	Long metric_3
 	Long metric_4
@@ -12,7 +12,7 @@ class Result {
     static constraints = {
 		
 		dateOfQuery()
-		metric_1()
+		dailyTotalCents()
 		metric_2()
 		metric_3()
 		metric_4()

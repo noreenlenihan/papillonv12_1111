@@ -19,6 +19,6 @@ class Result {
     }
 	
 	String toString(){
-		return dateOfQuery
+		return dailyTotalCents
 	}
 }
