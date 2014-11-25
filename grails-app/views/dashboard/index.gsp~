@@ -27,97 +27,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Average power per server'],
-                ['1',  100,      ${avgpower}],
-                ['2',  200,      180],
-                ['3',  300,       250],
-                ['4',  400,      350],
-                ['5',  500,      490],
-                ['6',  600,      570],
-                ['7',  800,      830],
-                ['8',  1000,      930],
-                ['9',  1400,      1250],
-                ['10',  1550,      1350],
-                ['11',  1700,      1500],
-                ['12',  1800,      1600]
-            ]);
-            var options = {
-                title: 'Annual Projection',
-                'chartArea': {'width': '70%', 'height': '80%'}
-            };
+    <script>
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_annual1'));
+	function alertBtnClicked(){
+		alertBtn.className = 'btn';
+		alertBtn.innerHTML = 'Alerts (0)';
+	}
 
-            chart.draw(data, options);
-        }
+
     </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Average Power per Server'],
-                ['1',  100,      ${avgpower}],
-                ['2',  200,      180],
-                ['3',  300,       250],
-                ['4',  400,      350],
-                ['5',  500,      490],
-                ['6',  600,      570],
-                ['7',  800,      830],
-                ['8',  1000,      930],
-                ['9',  1400,      1250],
-                ['10',  1550,      1350],
-                ['11',  1700,      1500],
-                ['12',  1800,      1600]
-            ]);
-            var options = {
-                title: 'Monthly Projection',
-                'chartArea': {'width': '70%', 'height': '80%'}
-            };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_monthly1'));
-
-            chart.draw(data, options);
-        }
-    </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', 'Est. Budget', 'Est. Spending'],
-                ['1',  100,      120],
-                ['2',  200,      180],
-                ['3',  300,       250],
-                ['4',  400,      350],
-                ['5',  500,      490],
-                ['6',  600,      570],
-                ['7',  800,      830],
-                ['8',  1000,      930],
-                ['9',  1400,      1250],
-                ['10',  1550,      1350],
-                ['11',  1700,      1500],
-                ['12',  1800,      1600]
-            ]);
-            var options = {
-                title: 'Weekly Projection',
-                'chartArea': {'width': '70%', 'height': '80%'}
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div_weekly1'));
-
-            chart.draw(data, options);
-        }
-    </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
     <script type="text/javascript">
         google.load("visualization", "1", {packages:["corechart"]});
         google.setOnLoadCallback(drawChart);
@@ -154,11 +74,9 @@
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
 
 %>
+
 <gvisualization:lineCoreChart elementId="linechart" title="Daily Power Expenditure" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
-
-<gvisualization:lineCoreChart elementId="budgetlinechart" title="Daily Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
- columns="${dailyBudgetColumns}" data="${dailyBudgetData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${weekresults}" />
@@ -178,6 +96,8 @@
 <gvisualization:lineCoreChart elementId="chart_div_annual_budget" title="Annual Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
  columns="${dailyBudgetColumns}" data="${annualBudgetData}" />
 
+
+
 </head>
 
 <body>
@@ -196,14 +116,26 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="admin">Administrator</a></li>
+                <li><a href="/Shiro_test/admin">Administrator</a></li>
                 <li><a href="/Shiro_test/cost_Center/create">Create Cost Center</a></li>
                 <li><a href="/Shiro_test/cost_Center/index">Join Cost Center</a></li>
-
+		<li><!-- Single button -->
+		<g:javascript src="../assets/javascripts/bootstrap.min.js"/>
+		<div class="btn-group">
+		  <button id="alertBtn" style="margin-top:8px;margin-right:8px" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onClick="alertBtnClicked()">
+		    Alerts (${alertslength}) <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" style="width:500px;" role="menu">
+		    <g:each in="${dailyAlertsData}">
+		    <li style="padding:10px;" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'">Budget exceeded by $${it[1]} on ${it[0]}</li>
+		    <li class="divider" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'"></li>
+		    </g:each>
+		  </ul>
+		</div></li>
+		<li><button style="margin-top:8px;margin-right:8px" onClick="location.href='/Shiro_test/auth/signOut'" class="btn" style="background-color:#EBFAFA; color:#33CCCC;">Sign Out</button></li>	
+				
+		
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
         </div>
     </div>
 </div>
@@ -344,7 +276,6 @@
         <div class="row placeholders">
 
 <div id="linechart"></div>
-<div id="budgetlinechart"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
@@ -365,6 +296,7 @@
 	month budget: ${monthBudget}
 	result1: ${res}
 	weekResults: ${weekresults}
+	dailyAlerts: ${dailyAlertsData}
 
         <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
@@ -397,19 +329,31 @@
 </div>
 </div>
 
+$('.dropdown-toggle').dropdown()
+
 </body>
 
 <footer>
     <p>&copy; Company 2014</p>
 </footer>
+	
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    ================================================== 
+    <!-- Placed at the end of the document so the pages load faster 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <asset:stylesheet src="bootstrap.min.css"/>
     <script src="../../assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
 </html>
 

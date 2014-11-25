@@ -5,6 +5,7 @@ import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.SecurityUtils
 import shiro_test.User
 import shiro_test.Role
+import org.apache.shiro.authc.AuthenticationException
 
 	
 class HomeController {
@@ -25,9 +26,14 @@ class HomeController {
 		
 		// Login user
 		def authToken = new UsernamePasswordToken(user.username, params.password)
-		SecurityUtils.subject.login(authToken)
-
-		redirect(controller: 'dashboard', action: 'index')
+		
+		try{
+			SecurityUtils.subject.login(authToken)
+			redirect(controller: 'dashboard', action: 'index')
+		}
+		catch(AuthenticationException ex){
+			redirect(controller: 'home')
+		}
 		
 	}
 

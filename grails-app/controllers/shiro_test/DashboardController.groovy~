@@ -126,6 +126,7 @@ class DashboardController {
 
 
 			def dailyGraphData = []
+			def dailyAlertsData = []
 			Double totalDailyPower = 0;
 			Double totalDailyCarbon = 0;
 			Double totalDailyPowerCost = 0;
@@ -135,7 +136,8 @@ class DashboardController {
 			double monthBudgetForDailyGraph = 0;
 			
 			Date yesterday = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L);
-
+			
+			def alertCounter = 0
 			for(def i=timestamps.size() - 1; i > 0; i--){
 				Date newDate = new Date((long)timestamps[i]*1000);
 				calDateForDailyGraph = dateToCalendar(newDate)
@@ -147,8 +149,16 @@ class DashboardController {
 					dailyGraphData.add([newDate, powerratings[i], monthBudgetForDailyGraph/timestamps.size()])
 					totalDailyPowerCost += powerratings[i];
 					totalDailyPower += allPowerConsumptionEntries[i]
+					if (alertCounter < 10 && powerratings[i] > monthBudgetForDailyGraph/timestamps.size()){
+						if (powerratings[i] == null){
+							powerratings[i] = 0.0
+						}
+						dailyAlertsData.add([newDate, (double)Math.round((powerratings[i] - monthBudgetForDailyGraph/timestamps.size()) * 10000000)/10000000])
+					}
 					
 				}
+
+				alertCounter++
 			}
 			
 			//metric taken from www.carbonindependent.org
@@ -255,7 +265,7 @@ class DashboardController {
 			ArrayList<Result> cumulativeYearArray = new ArrayList<Result>();
 			double yearlyPowerCounter = 0
 			double yearlyBudgetCounter = 0
-			for(def k=364; k >= 0; k--){
+			for(def k=365; k >= 0; k--){
 				
 				def yearresults = Result.withCriteria{
 			
@@ -287,7 +297,7 @@ class DashboardController {
 
 
 			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: totalAnnualPowerCost,
-totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray]
+totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData]
 
 		}
 		}

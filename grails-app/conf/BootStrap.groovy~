@@ -22,7 +22,7 @@ class BootStrap {
 			def userRole = new Role(name: "User")
 			userRole.addToPermissions("Home:index")
 			userRole.addToPermissions("Home:secured")
-			userRole.addToPermissions("dashboard:index")
+			userRole.addToPermissions("dashboard:*")
 			userRole.addToPermissions("cost_Center:create")
 			userRole.addToPermissions("cost_Center:edit")
 			userRole.addToPermissions("cost_Center:update")
@@ -48,14 +48,9 @@ class BootStrap {
 			user4.save()
 			
 			
-			def server1 = new Server(serverName: "server1", location: "UCD", floor: 1, rack: 2)
+			def server1 = new Server(serverName: "dc1fl1rk1ht1", location: "UCD", floor: 1, rack: 2)
 			server1.save()
-			def server2 = new Server(serverName: "server2", location: "UCD", floor: 2, rack: 2)
-			server2.save()
-			def server3 = new Server(serverName: "server1", location: "AIB", floor: 1, rack: 2)
-			server3.save()
-			def server4 = new Server(serverName: "server2", location: "AIB", floor: 3, rack: 2)
-			server4.save()
+			
 			
 			def c1 = new Cost_Center(costCenterName: "Kevins Center", budget: 5000)
 			c1.save()
