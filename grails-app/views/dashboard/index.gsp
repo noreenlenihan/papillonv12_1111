@@ -157,9 +157,6 @@
 <gvisualization:lineCoreChart elementId="linechart" title="Daily Power Expenditure" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
 
-<gvisualization:lineCoreChart elementId="budgetlinechart" title="Daily Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
- columns="${dailyBudgetColumns}" data="${dailyBudgetData}" />
-
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${weekresults}" />
 
@@ -344,7 +341,6 @@
         <div class="row placeholders">
 
 <div id="linechart"></div>
-<div id="budgetlinechart"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>

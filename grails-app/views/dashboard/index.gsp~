@@ -161,7 +161,7 @@
  columns="${dailyBudgetColumns}" data="${dailyBudgetData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
- columns="${myDailyActivitiesColumns}" data="${weekArray}" />
+ columns="${myDailyActivitiesColumns}" data="${weekresults}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly_budget" title="Weekly Cumulative Budget vs Actual Expenditure" width="${900}" height="${500}" 
  columns="${dailyBudgetColumns}" data="${weeklyBudgetData}" />
