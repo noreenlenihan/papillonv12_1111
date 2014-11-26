@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Papillon.this</a>
+          <a class="navbar-brand" href="/Shiro_test/home">Papillon-Express</a>
         </div>
         <div class="navbar-collapse collapse">
         
@@ -61,11 +61,8 @@
 
     <div class="container" style='font-family:"Ubuntu-C"; background-color:#EBFAFA;'>
       <div>
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Admin Control Panel</h1>
+			<p>Click on the controllers below to create, update, edit, or delete entities for Servers, Users, and to start the Papillon API.</p>
 
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>

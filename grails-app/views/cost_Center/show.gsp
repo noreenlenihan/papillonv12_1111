@@ -45,7 +45,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Papillon.this</a>
+          <a class="navbar-brand" href="/Shiro_test/home">Papillon-Express</a>
+	  <a class="navbar-brand" style="float:left" href="/Shiro_test/dashboard/index">Go To Dashboard</a>
         </div>
         <div class="navbar-collapse collapse">
         

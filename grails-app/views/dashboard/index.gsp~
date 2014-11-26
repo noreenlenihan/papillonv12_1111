@@ -29,6 +29,7 @@
 
     <script>
 
+
 	function alertBtnClicked(){
 		alertBtn.className = 'btn';
 		alertBtn.innerHTML = 'Alerts (0)';
@@ -68,15 +69,16 @@
     </script>
 
 	<%
-   def myDailyActivitiesColumns = [['datetime', 'Time'], ['number', 'Power cost (cents per Kw/hr)'], ['number', 'Budget']]
-   def dailyBudgetColumns = [['datetime', 'time'], ['number', 'Cents'], ['number', 'Budget']]
+   def myDailyActivitiesColumns = [['datetime', 'Time'], ['number', 'Cents/Kw/Hour (Expenditure)'], ['number', 'Cents/Kw/Hour (Budget)']]
+   def myDailyActivitiesColumns2 = [['datetime', 'Time'], ['number', 'Cents/Hour (Expenditure)'], ['number', 'Cents/Hour (Budget)']]
+   def dailyBudgetColumns = [['datetime', 'time'], ['number', 'Cents'], ['number', 'Cents']]
    
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]
 
 %>
 
 <gvisualization:lineCoreChart elementId="linechart" title="Daily Power Expenditure" width="${900}" height="${500}" 
- columns="${myDailyActivitiesColumns}" data="${dailyGraphData}" />
+ columns="${myDailyActivitiesColumns2}" data="${dailyGraphData}" />
 
 <gvisualization:lineCoreChart elementId="chart_div_weekly" title="Weekly Consumption" width="${900}" height="${500}" 
  columns="${myDailyActivitiesColumns}" data="${weekresults}" />
@@ -111,14 +113,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Papillon Express</a>
+            <a class="navbar-brand" href="/Shiro_test/home">Papillon-Express</a>
             <a class="navbar-brand" style="float:left">Welcome back, ${User}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/Shiro_test/admin">Administrator</a></li>
                 <li><a href="/Shiro_test/cost_Center/create">Create Cost Center</a></li>
-                <li><a href="/Shiro_test/cost_Center/index">Join Cost Center</a></li>
+                <li><a href="/Shiro_test/cost_Center/index">Edit Cost Center</a></li>
 		<li><!-- Single button -->
 		<g:javascript src="../assets/javascripts/bootstrap.min.js"/>
 		<div class="btn-group">
@@ -127,8 +129,8 @@
 		  </button>
 		  <ul class="dropdown-menu" style="width:500px;" role="menu">
 		    <g:each in="${dailyAlertsData}">
-		    <li style="padding:10px;" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'">Budget exceeded by $${it[1]} on ${it[0]}</li>
-		    <li class="divider" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'"></li>
+		    <li style="padding:10px;" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'" onclick="location.href = '/Shiro_test/recommend';">Budget exceeded by $${it[1]} on ${it[0]}</li>
+		    <li class="divider"></li>
 		    </g:each>
 		  </ul>
 		</div></li>
@@ -162,11 +164,11 @@
 
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 id="annual" style="text-align:center" class="page-header"><%= title %></h1>
+        <h1 style="text-align:center" class="page-header"><%= title %></h1>
 
 
         <div class="row placeholders">
-
+	    <h2 id="annual" style="text-align:center" class="sub-header">Annual Energy Consumption</h2>
             <div id="chart_div_annual" style="width: 1000px; height: 500px;"></div>
 
 	    <div id="chart_div_annual_budget" style="width: 1000px; height: 500px;"></div>
@@ -174,7 +176,7 @@
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
 
-        <h2 style="text-align:center" class="sub-header">Annual Energy Consumption</h2>
+ 
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
@@ -194,7 +196,7 @@
                     <td>${totalAnnualPower}</td>
                     <td>${totalAnnualPowerCost}</td>
                     <td>${totalAnnualCarbon}</td>
-                    <td>n/a</td>
+                    <td>${annualBudgetDiff}</td>
                 </tr>
                </g:each>
 
@@ -204,14 +206,13 @@
 
 
         <div class="row placeholders">
-
+		<h2 id="monthly" style="text-align:center" class="sub-header">Monthly Energy Consumption</h2>
             <div id="chart_div_monthly" style="width: 1000px; height: 500px;"></div>
 
 	    <div id="chart_div_monthly_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-        <h2 style="text-align:center" class="sub-header">Monthly Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
@@ -229,9 +230,9 @@
 		<tr>
                     <td>${it}</td>
                     <td>${totalMonthlyPower}</td>
-                    <td>${totalMonthlyPowerCost}</td>
+                    <td>${monthlyPowerCounter}</td>
                     <td>${totalMonthlyCarbon}</td>
-                    <td>n/a</td>
+                    <td>${monthlyBudgetDiff}</td>
                 </tr>
                </g:each>
 
@@ -239,14 +240,13 @@
             </table>
         </div>
         <div class="row placeholders">
-
+	    <h2 id="weekly" style="text-align:center" class="sub-header">Weekly Energy Consumption</h2>
             <div id="chart_div_weekly" style="width: 1000px; height: 500px;"></div>
 
 	    <div id="chart_div_weekly_budget" style="width: 1000px; height: 500px;"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-        <h2 style="text-align:center" class="sub-header">Weekly Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px" class="table table-striped">
                 <thead>
@@ -264,9 +264,9 @@
 		<tr>
                     <td>${it}</td>
                     <td>${totalWeeklyPower}</td>
-                    <td>${totalWeeklyPowerCost}</td>
+                    <td>${weeklyPowerCostCounter}</td>
                     <td>${totalWeeklyCarbon}</td>
-                    <td>n/a</td>
+                    <td>${totalWeeklyBudgetDifference}</td>
                 </tr>
                </g:each>
 
@@ -274,12 +274,13 @@
             </table>
         </div>
         <div class="row placeholders">
-
-<div id="linechart"></div>
+	<h2 id="daily" style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
+	<div id="linechart"></div>
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-	Users retrieved: ${user_results}
+	
+	<!--Users retrieved: ${user_results}
 	Cost centers retrieved: ${costc_results}
 	Cost center chosen: ${cost_center_chosen}
 	First cc redirect: ${first_cc}
@@ -296,9 +297,10 @@
 	month budget: ${monthBudget}
 	result1: ${res}
 	weekResults: ${weekresults}
-	dailyAlerts: ${dailyAlertsData}
+	dailyAlerts: ${dailyAlertsData} -->
+	monthbud: ${monthBudgetForDailyGraph}
+	Yesterday: ${yesterday}
 
-        <h2 style="text-align:center" class="sub-header">Daily Energy Consumption</h2>
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">
                 <thead>
@@ -318,7 +320,7 @@
                     <td>${totalDailyPower}</td>
                     <td>${totalDailyPowerCost}</td>
                     <td>${totalDailyCarbon}</td>
-                    <td>n/a</td>
+                    <td>${dailyTotalBudgetEvaluation}</td>
                 </tr>
                </g:each>
 
@@ -346,6 +348,16 @@ $('.dropdown-toggle').dropdown()
 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script type="text/javascript">
+	if (${alertslength} === 0){
+		var alertBtn2;
+		alertBtn2 = document.getElementById("alertBtn");
+		alertBtn2.className = 'btn';
+		alertBtn2.innerHTML = 'Alerts (0)';
+	}
+</script>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== 

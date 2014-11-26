@@ -134,6 +134,7 @@ class DashboardController {
 			int daysInMonthForDailyGraph = 0;
 			int monthForDailyGraph = 0;
 			double monthBudgetForDailyGraph = 0;
+			double dailyTotalBudgetEvaluation = 0;
 			
 			Date yesterday = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L);
 			
@@ -146,14 +147,14 @@ class DashboardController {
 				monthBudgetForDailyGraph = monthBudgetsArray[monthForDailyGraph]
 			
 				if(newDate > yesterday){
-					dailyGraphData.add([newDate, powerratings[i], monthBudgetForDailyGraph/timestamps.size()])
+					dailyGraphData.add([newDate, powerratings[i], (monthBudgetForDailyGraph/(daysInMonthForDailyGraph *24))])
 					totalDailyPowerCost += powerratings[i];
 					totalDailyPower += allPowerConsumptionEntries[i]
-					if (alertCounter < 10 && powerratings[i] > monthBudgetForDailyGraph/timestamps.size()){
+					if (alertCounter < 10 && powerratings[i] > (monthBudgetForDailyGraph/(daysInMonthForDailyGraph * 24))){
 						if (powerratings[i] == null){
 							powerratings[i] = 0.0
 						}
-						dailyAlertsData.add([newDate, (double)Math.round((powerratings[i] - monthBudgetForDailyGraph/timestamps.size()) * 10000000)/10000000])
+						dailyAlertsData.add([newDate, (double)Math.round((powerratings[i] - (monthBudgetForDailyGraph/(daysInMonthForDailyGraph * 24))) * 10000000)/10000000])
 					}
 					
 				}
@@ -164,6 +165,11 @@ class DashboardController {
 			//metric taken from www.carbonindependent.org
 			totalDailyCarbon = 0.527 * totalDailyPower;
 
+			if((monthBudgetForDailyGraph/(daysInMonthForDailyGraph)) > totalDailyPowerCost){
+				dailyTotalBudgetEvaluation = ((monthBudgetForDailyGraph/(daysInMonthForDailyGraph)) - totalDailyPowerCost)
+			} else {
+				dailyTotalBudgetEvaluation = totalDailyPowerCost - (monthBudgetForDailyGraph/(daysInMonthForDailyGraph))
+			}
 
 			def weeklyGraphData = []
 			def totalWeeklyPowerCost = 0
@@ -176,7 +182,7 @@ class DashboardController {
 
 			ArrayList<Result> weekArray = new ArrayList<Result>();
 			ArrayList<Result> cumulativeWeekArray = new ArrayList<Result>();
-			def weeklyPowerCounter = 0
+			def weeklyPowerCostCounter = 0
 			def weeklyBudgetCounter = 0
 			def now = new Date()
 			for(def k=7; k >= 0; k--){
@@ -192,7 +198,8 @@ class DashboardController {
 				}
 
 				if (weekresults.dailyTotalCents[0] != null) {
-					weeklyPowerCounter += weekresults.dailyTotalCents[0] * costCenterCentsPerKw
+					totalWeeklyPower += weekresults.dailyTotalCents[0]
+					weeklyPowerCostCounter += weekresults.dailyTotalCents[0] * costCenterCentsPerKw
 				}
 				weeklyBudgetCounter += (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0
 
@@ -201,11 +208,19 @@ class DashboardController {
 					tempDailyPowerCost = weekresults.dailyTotalCents[0] * costCenterCentsPerKw
 				}
 				weekArray.add([now - k, tempDailyPowerCost, (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0])
-				cumulativeWeekArray.add([now-k, weeklyPowerCounter, weeklyBudgetCounter])
+				cumulativeWeekArray.add([now-k, weeklyPowerCostCounter, weeklyBudgetCounter])
 
 			}
 
+	
 			totalWeeklyCarbon = 0.527 * totalWeeklyPower
+
+			double totalWeeklyBudgetDifference
+			if (weeklyBudgetCounter > weeklyPowerCostCounter){
+			 	totalWeeklyBudgetDifference = weeklyBudgetCounter - weeklyPowerCostCounter
+			} else{
+				totalWeeklyBudgetDifference = weeklyPowerCostCounter - weeklyBudgetCounter
+			}
 
 
 			def monthlyGraphData = []
@@ -235,6 +250,7 @@ class DashboardController {
 				}
 				
 				if (monthresults.dailyTotalCents[0] != null) {
+					totalMonthlyPower += monthresults.dailyTotalCents[0]
 					monthlyPowerCounter += monthresults.dailyTotalCents[0] * costCenterCentsPerKw
 				}
 				monthlyBudgetCounter += (monthBudget/daysInMonth)
@@ -249,6 +265,13 @@ class DashboardController {
 
 			}
 
+			totalMonthlyCarbon = 0.527 * totalMonthlyPower
+			double monthlyBudgetDiff = 0
+			if(monthlyBudgetCounter > monthlyPowerCounter){
+				monthlyBudgetDiff = monthlyBudgetCounter - monthlyPowerCounter
+			} else{
+				monthlyBudgetDiff = monthlyPowerCounter - monthlyBudgetCounter
+			}
 
 			def annualGraphData = []
 			def totalAnnualPowerCost = 0
@@ -278,6 +301,7 @@ class DashboardController {
 				}
 
 				if (yearresults.dailyTotalCents[0] != null) {
+					totalAnnualPower += yearresults.dailyTotalCents[0]
 					yearlyPowerCounter += yearresults.dailyTotalCents[0] * costCenterCentsPerKw
 				}
 				yearlyBudgetCounter += (monthBudgetForAnnualGraph/daysInMonthForAnnualGraph)
@@ -293,11 +317,17 @@ class DashboardController {
 			}
 
 			totalAnnualCarbon = 0.527 * totalAnnualPower
+			double annualBudgetDiff = 0
+			if(yearlyBudgetCounter > yearlyPowerCounter){
+				annualBudgetDiff = yearlyBudgetCounter - yearlyPowerCounter
+			} else{
+				annualBudgetDiff = yearlyPowerCounter - yearlyBudgetCounter
+			}
 
 
 
-			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: totalAnnualPowerCost,
-totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData]
+			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: yearlyPowerCounter,
+totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData, alertslength: dailyAlertsData.size(), dailyTotalBudgetEvaluation: dailyTotalBudgetEvaluation, weeklyPowerCostCounter: weeklyPowerCostCounter, totalWeeklyBudgetDifference: totalWeeklyBudgetDifference, monthlyPowerCounter: monthlyPowerCounter, monthlyBudgetDiff: monthlyBudgetDiff, annualBudgetDiff: annualBudgetDiff, monthBudgetForDailyGraph: monthBudgetForDailyGraph]
 
 		}
 		}

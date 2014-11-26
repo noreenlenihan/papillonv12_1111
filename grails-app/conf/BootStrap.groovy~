@@ -23,7 +23,7 @@ class BootStrap {
 			userRole.addToPermissions("Home:index")
 			userRole.addToPermissions("Home:secured")
 			userRole.addToPermissions("dashboard:*")
-			userRole.addToPermissions("cost_Center:create")
+			userRole.addToPermissions("cost_Center:*")
 			userRole.addToPermissions("cost_Center:edit")
 			userRole.addToPermissions("cost_Center:update")
 			userRole.addToPermissions("cost_Center:delete")

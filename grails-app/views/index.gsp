@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  	<title>Enter Papillon.this</title>
+  	<title>Enter Papillon-Express</title>
   	<link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
 	<asset:stylesheet src="fonts.css"/>
 
@@ -26,7 +26,7 @@
   	<!--<asset:image src="sittingbutterfly-animation.gif" alt="Butterfly" width="100" height="80"/>-->
   	</div>
   	<div style="margin-top:200px; margin-bottom: 80px;">
-  	<a href="home">Enter Papillon.this</a>
+  	<a href="home">Enter Papillon-<em>Express</em></a>
 	<!--<asset:image src="orangebutterflyanimated.gif" alt="Butterfly" width="80" height="80"/>-->
 	</div>
 	<iframe src="http://giphy.com/embed/MJW59l6PiMfew?html5=true" width="480" height="305" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>

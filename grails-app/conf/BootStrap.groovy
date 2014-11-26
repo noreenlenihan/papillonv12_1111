@@ -21,6 +21,7 @@ class BootStrap {
 			// Create the user role
 			def userRole = new Role(name: "User")
 			userRole.addToPermissions("Home:index")
+			userRole.addToPermissions("Recommend:*")
 			userRole.addToPermissions("Home:secured")
 			userRole.addToPermissions("dashboard:*")
 			userRole.addToPermissions("cost_Center:*")
