@@ -8,6 +8,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject;
 
 import connectionpackage.Connection;
 
+//class to create a floor
 public class Floor {
 	ArrayList<Rack> racks;
 	int floorid;
@@ -25,14 +26,18 @@ public class Floor {
 		try {
 			this.floorid = floorid2;
 			this.datacenterId = dataCenterId;
+			//connect to API using datacenterId and floorId
 			this.URL = "datacenters/" + datacenterId + "/floors/" + floorid2;
 			JSONObject floorsResults = connect.connect(connect, this.URL);
+			
+			//fill in fields with results
 			this.setName(floorsResults.getString("name"));
 			this.setDescription(floorsResults.getString("description"));
 			this.setXaxis(floorsResults.getDouble("xAxis"));
 			this.setYaxis(floorsResults.getDouble("yAxis"));
 			racks = new ArrayList<Rack>();
 			this.racks = getrackdata(this.datacenterId, this.floorid);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -41,6 +46,7 @@ public class Floor {
 	public ArrayList<Rack> getrackdata(int dataCenterId, int floorId) {
 	
 		try {
+			//connect to API to return list of racks
 			JSONArray racksList = connect.connectMulti(connect, this.URL + "/racks");
 			for(int i = 0; i < racksList.length(); i++){
 				JSONObject r = racksList.getJSONObject(i);

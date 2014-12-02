@@ -1,6 +1,7 @@
 package resource;
 import shiro_test.Shiro_test;
 
+//class to test ShiroTest
 public class ShiroTest2 {
 	private Shiro_test st;
 

@@ -8,6 +8,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject;
 
 import connectionpackage.Connection;
 
+//class to return datacenters
 public class DataCenters{
 	ArrayList<DataCenter> datacenters;
 	String URL;
@@ -17,6 +18,7 @@ public class DataCenters{
 		try {
 			this.URL = "datacenters/";
 			this.datacenters = new ArrayList<DataCenter>();
+			//connect to API to return array of datacenters
 			JSONArray datacenter = (connect.connectMulti(connect, this.URL));
 
 			for (int i = 0; i < datacenter.length(); i++){
@@ -27,7 +29,7 @@ public class DataCenters{
 			e.printStackTrace();
 		}
 	}
-
+	//getters and setters
 	public ArrayList<DataCenter> getDatacenters(){
 		return datacenters;
 	}
