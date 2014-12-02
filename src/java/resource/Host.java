@@ -10,7 +10,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject;
 
 import connectionpackage.Connection;
 
-//create one connection and use that connection for all calls
+//class to create a host
 public class Host {
 
 	HashMap<String, HashMap<Long, Double>> powerRatings;
@@ -38,8 +38,11 @@ public class Host {
 			this.setTrackerId();
 			this.URL = "datacenters/" + dataCenterId + "/floors/" +
 				floorId + "/racks/" + rackId + "/hosts/" + hostId;
+			
+			//connect to API with ids
 			JSONObject hostResults = connect.connect(connect, this.URL);
 
+			//fill in fields with data from results and add to powerRatings
 			this.setName(hostResults.getString("name"));
 			this.setModelGroupId(hostResults.getInt("modelGroupId"));
 			this.setHostType(hostResults.getString("hostType"));
@@ -51,15 +54,20 @@ public class Host {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//get power data for host
 	public HashMap<String, HashMap<Long, Double>> getPower(String trackerId) {
 		
-		try {
+		try {	
+			//end time is now, start time is now - 24 hours
 			long startTime = (long) (System.currentTimeMillis() / 1000 - (1 *86400));
 			long endTime = System.currentTimeMillis() / 1000;
+			
+			//connect to API
 			JSONArray powerList = connect.connectMulti(connect, this.URL +
 				"/power?starttime=" + startTime + "&endtime=" + endTime);
-
+			
+			//get back values and 
 			HashMap<Long, Double> values = new HashMap<Long, Double>();
 			JSONArray ja = powerList.getJSONArray(0);
 			int i;
@@ -78,7 +86,7 @@ public class Host {
 		return null;
 	}
 
-
+	//getters and setters
 	public int getHostId() {
 		return hostId;
 	}
