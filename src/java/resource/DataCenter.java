@@ -11,6 +11,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject;
 
 import connectionpackage.Connection;
 
+//class to create a datacenter
 public class DataCenter implements ResourceActivity {
 	ArrayList<Floor> floors;
 	int id;
@@ -25,9 +26,11 @@ public class DataCenter implements ResourceActivity {
 	public DataCenter(int id) {
 		this.id = id;
 		this.URL = "datacenters/" + id;
+		//connect to API with datacenter id
 		JSONObject datacenter = connect.connect(connect, this.URL);
 
 		try {
+			//fill in data fields
 			this.setName(datacenter.getString("name"));
 			this.setDescription(datacenter.getString("description"));
 			this.setLatitude(datacenter.getDouble("latitude"));
@@ -43,8 +46,10 @@ public class DataCenter implements ResourceActivity {
 	private ArrayList<Floor> getfloordata() {
 		
 		try {
+			//connect to API
 			JSONArray floorsList = connect.connectMulti(connect, "datacenters/" + this.id + "/floors");
 
+			//get back list of floors
 			for (int i = 0; i < floorsList.length(); i++){
 				JSONObject f = floorsList.getJSONObject(i);
 				floors.add(new Floor(f.getInt("id"), this.id));
@@ -64,7 +69,7 @@ public class DataCenter implements ResourceActivity {
 		getfloordata();
 
 	}
-
+	//getters and setters
 	public ArrayList<Floor> getFloors() {
 		return floors;
 	}
