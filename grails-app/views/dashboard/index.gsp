@@ -70,7 +70,7 @@
 
 	<%
    def myDailyActivitiesColumns = [['datetime', 'Time'], ['number', 'Cents/Kw/Hour (Expenditure)'], ['number', 'Cents/Kw/Hour (Budget)']]
-   def myDailyActivitiesColumns2 = [['datetime', 'Time'], ['number', 'Cents/Hour (Expenditure)'], ['number', 'Cents/Hour (Budget)']]
+   def myDailyActivitiesColumns2 = [['datetime', 'Time'], ['number', 'Cents/Min (Expenditure)'], ['number', 'Cents/Min (Budget)']]
    def dailyBudgetColumns = [['datetime', 'time'], ['number', 'Cents'], ['number', 'Cents']]
    
    def myDailyActivitiesData = [[1, 11], [2, 2], [3, 2], [4, 2], [5, 7]]

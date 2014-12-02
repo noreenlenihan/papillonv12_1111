@@ -7,7 +7,10 @@ import shiro_test.User
 import shiro_test.Role
 import org.apache.shiro.authc.AuthenticationException
 
-	
+/*
+*
+* Controller for Home URL (Shiro_test/home) used for sign in
+*/	
 class HomeController {
 	
 	def shiroSecurityService

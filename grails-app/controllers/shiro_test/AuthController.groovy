@@ -8,6 +8,11 @@ import org.apache.shiro.web.util.WebUtils
 
 import resource.DataCenter
 
+
+/*
+* Controller to deal with user authentication
+*
+*/
 class AuthController {
     def shiroSecurityManager
 

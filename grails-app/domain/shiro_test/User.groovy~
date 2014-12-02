@@ -6,7 +6,7 @@ class User {
 	
     
     static hasMany = [ roles: Role, permissions: String, costcenters: Cost_Center]
-	static belongsTo = Cost_Center
+    static belongsTo = Cost_Center
 	
     static constraints = {
         username(nullable: false, blank: false, unique: true)

@@ -32,7 +32,7 @@ class HomeController {
 			redirect(controller: 'dashboard', action: 'index')
 		}
 		catch(AuthenticationException ex){
-			redirect(controller: 'home')
+			redirect(uri: '/home')
 		}
 		
 	}

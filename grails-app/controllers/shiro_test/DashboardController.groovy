@@ -22,38 +22,60 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
 
 
+/*
+* This controller class performs all the functions necessary to take in the data
+* returned from the Papillon API and manipulate it to populate the graphs
+*/
 class DashboardController { 
 
+    /*
+    * Method that is called by default for Dashboard Controller. 
+    * All data-manipulation methods are contained in here
+    */
     def index() { 
 		
-	
+		// Get the current user logged into website
 		def currentUser = SecurityUtils.getSubject()
 		currentUser = currentUser.getPrincipal()
+
+		// Testing - list all created cost centers
 		def centerInstance = Cost_Center.list()
 
+		// Retrieve the cost center that the user would like to view
 		def cost_center_chosen = Cost_Center.get(params.id)
 
-
+		// Return a list of cost centers that the logged in user has created
 		def costcenterstuff2 = Cost_Center.withCriteria{
 			users {
 				eq('username', currentUser)
 			}
 		}
 
+		// If the user has not created any cost centers, redirect them to the 'Create Cost Center' page
 		if(costcenterstuff2.size() == 0){
 			redirect(controller: "cost_Center", action: "create")
-		} else{
+		} 
+		
+		// If the user has created cost centers previously, redirect them to the first
+		// cost center in their list of cost centers
+		else{
 
+			// Declare variable to store cost center
 			Cost_Center first_cc;
+
+			// Retrieve user's first created cost center
 			if ((cost_center_chosen == null) && (costcenterstuff2.size() > 0)){
 				first_cc = costcenterstuff2.get(0)
 			}
 
+	
+			// If cost center not defined in params (URL), redirect to first cost center
 			if (cost_center_chosen == null){
 				redirect(action: "index", params: [id: first_cc.id])
 			} else{
 
-			def servers_included = Server.withCriteria{
+				// Retrieve list of servers associated with specified cost center
+				def servers_included = Server.withCriteria{
 				costcenters {
 					eq('costCenterName', cost_center_chosen.costCenterName)
 				}
@@ -66,10 +88,14 @@ class DashboardController {
 
 			}
 
-			def costCenterCentsPerKw = cost_center_chosen.centsPerKiloWatt
 
+			// Get cents per kilowatt cost that was defined by user for cost center
+			def costCenterCentsPerKw = cost_center_chosen.centsPerKiloWatt
+			
+			// Initialize array containing budget amount per month
 			ArrayList<Double> monthBudgetsArray = new ArrayList<Double>();
 
+			// Add monthly budget allowances to array when converted to cents
 			monthBudgetsArray.add(cost_center_chosen.janBudget * 100)
 			monthBudgetsArray.add(cost_center_chosen.febBudget * 100)
 			monthBudgetsArray.add(cost_center_chosen.marBudget * 100)
@@ -88,10 +114,15 @@ class DashboardController {
 
 			String [] arr = new String[1]
 
+			// Hardcoded value for local server
 			arr[0] = "dc1fl1rk1ht1"
 
+		
+			// Instantiate DataCenters object
 			DataCenters dcs = new DataCenters();
 
+
+			// Use for-enhanced loops to get all data points associated with server
 			String results = "";
 			ArrayList<Double> allPowerConsumptionEntries = new ArrayList<Double>();
 			ArrayList<String> servers = new ArrayList<String>();
@@ -111,7 +142,7 @@ class DashboardController {
 									Double powervalue = values.get(innerkey);
 									allPowerConsumptionEntries.add(powervalue/1000)
 									//converting watts/min to cents/kilowatts/hour
-									powervalue = powervalue/1000  * costCenterCentsPerKw
+									powervalue = (powervalue * 60)/1000  * costCenterCentsPerKw
 									servers.add(key)
 									timestamps.add(innerkey)
 									powerratings.add(powervalue)
@@ -125,6 +156,10 @@ class DashboardController {
 
 
 
+			/*
+			* Block of code that uses loop performed above
+			* to populate the daily graph and table
+			*/
 			def dailyGraphData = []
 			def dailyAlertsData = []
 			Double totalDailyPower = 0;
@@ -165,12 +200,19 @@ class DashboardController {
 			//metric taken from www.carbonindependent.org
 			totalDailyCarbon = 0.527 * totalDailyPower;
 
+		
+			// Resolve whether daily budget deficit/surplus eventuated
 			if((monthBudgetForDailyGraph/(daysInMonthForDailyGraph)) > totalDailyPowerCost){
 				dailyTotalBudgetEvaluation = ((monthBudgetForDailyGraph/(daysInMonthForDailyGraph)) - totalDailyPowerCost)
 			} else {
-				dailyTotalBudgetEvaluation = totalDailyPowerCost - (monthBudgetForDailyGraph/(daysInMonthForDailyGraph))
+				dailyTotalBudgetEvaluation = (monthBudgetForDailyGraph/(daysInMonthForDailyGraph)) - totalDailyPowerCost
 			}
 
+
+			/*
+			* Block of code that retrieves daily totals within the past week
+			* from the database, and performs calculations for graphs/tables
+			*/
 			def weeklyGraphData = []
 			def totalWeeklyPowerCost = 0
 			def totalWeeklyPower = 0
@@ -223,6 +265,10 @@ class DashboardController {
 			}
 
 
+			/*
+			* Block of code to retrieve daily totals from database
+			* within the last month and perform calculations for graphs/tables
+			*/
 			def monthlyGraphData = []
 			def totalMonthlyPowerCost = 0
 			def totalMonthlyPower = 0
@@ -273,6 +319,11 @@ class DashboardController {
 				monthlyBudgetDiff = monthlyPowerCounter - monthlyBudgetCounter
 			}
 
+
+			/*
+			* Block of code to aggregate and manipulate data for the
+			* annual graphs/tables within the last year (from today's date)
+			*/
 			def annualGraphData = []
 			def totalAnnualPowerCost = 0
 			def totalAnnualPower = 0
@@ -325,7 +376,7 @@ class DashboardController {
 			}
 
 
-
+			// list of key-value pairs to send to html page for use with grails template language
 			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: yearlyPowerCounter,
 totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData, alertslength: dailyAlertsData.size(), dailyTotalBudgetEvaluation: dailyTotalBudgetEvaluation, weeklyPowerCostCounter: weeklyPowerCostCounter, totalWeeklyBudgetDifference: totalWeeklyBudgetDifference, monthlyPowerCounter: monthlyPowerCounter, monthlyBudgetDiff: monthlyBudgetDiff, annualBudgetDiff: annualBudgetDiff, monthBudgetForDailyGraph: monthBudgetForDailyGraph]
 
@@ -334,6 +385,10 @@ totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weekly
 	
     }
 
+
+    /*
+    * Method to return date in calendar format necessary for graphs
+    */
     def static Calendar dateToCalendar(Date date){
 	Calendar cal = Calendar.getInstance()
 	cal.setTime(date)

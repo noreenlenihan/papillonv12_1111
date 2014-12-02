@@ -105,7 +105,7 @@ class AggregationResultsService {
 	};
 
 
-	final ScheduledFuture<?> callHandle = scheduler.scheduleAtFixedRate(call, 0, 60, TimeUnit.SECONDS);
+	final ScheduledFuture<?> callHandle = scheduler.scheduleAtFixedRate(call, 0, 86400, TimeUnit.SECONDS);
 	scheduler.schedule(new Runnable() {
 		public void run(){ callHandle.cancel(true); }
 	}, 60 * 60, TimeUnit.SECONDS);

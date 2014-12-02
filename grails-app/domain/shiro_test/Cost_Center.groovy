@@ -1,5 +1,9 @@
 package shiro_test
 
+/*
+* Domain representing Cost Center model
+* with appropriate attributes
+*/
 class Cost_Center {
 	
 	String costCenterName
@@ -17,9 +21,10 @@ class Cost_Center {
 	Double novBudget
 	Double decBudget
 	
+	// Define relationships with other models
 	static hasMany = [ users: User, permissions: String, servers: Server ]
 	
-
+    // Define ordering of attributes when rendered
     static constraints = {
 		
 		costCenterName()
@@ -37,8 +42,9 @@ class Cost_Center {
 		novBudget()
 		decBudget()
     }
-	
-	String toString(){
-		return costCenterName
-	}
+
+    // Override toString() method
+    String toString(){
+	return costCenterName
+    }
 }

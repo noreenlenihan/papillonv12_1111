@@ -59,7 +59,7 @@ class AggregationResultsService {
 							
 							allPowerConsumptionEntries.add(powervalue/1000)
 							//converting watts/min to cents/kilowatts/hour
-							powervalue = powervalue/1000
+							powervalue = (powervalue * 60)/1000
 							servers.add(key)
 							timestamps.add(innerkey)
 							powerratings.add(powervalue)

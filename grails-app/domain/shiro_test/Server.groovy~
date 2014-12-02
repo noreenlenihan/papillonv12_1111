@@ -1,5 +1,9 @@
 package shiro_test
 
+/*
+* Domain representing Server model
+*
+*/
 class Server {
 
 	String serverName
@@ -18,7 +22,7 @@ class Server {
     }
 	
 	String toString(){
-		return "dc1" + "fl" + floor + "rk" + rack + "ht1"
+		return "dc1" + "fl1" +"rk1" + "ht1"
 	}
 }
 
