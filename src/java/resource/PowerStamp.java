@@ -1,18 +1,21 @@
 package resource;
 
+//class to create a powerStamp
 public class PowerStamp {
 	static double averagePower;
 	static double totalPower;
 	static long timeStamp;
 	static String serverId;
 	
+	//constructor
 	public PowerStamp(double averagePower, double totalPower, long timeStamp, String serverId)	{
 		this.averagePower = averagePower;
 		this.totalPower = totalPower;
 		this.timeStamp = timeStamp;
 		this.serverId = serverId;
 	}
-
+	
+	//getters and setters
 	public static double getAveragePower() {
 		return averagePower;
 	}
