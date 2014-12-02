@@ -6,6 +6,10 @@ import resource.Floor
 import resource.Rack
 import resource.Host
 
+
+/*
+* Controller implemented for testing API call functionality
+**/
 class TestingController {
 	//static scaffold = true
     def index() {

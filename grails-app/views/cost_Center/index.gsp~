@@ -82,7 +82,6 @@
 					
 						<g:sortableColumn property="costCenterName" title="${message(code: 'cost_Center.costCenterName.label', default: 'Cost Center Name')}" />
 					
-						<g:sortableColumn property="budget" title="${message(code: 'cost_Center.budget.label', default: 'Budget')}" />
 						<g:sortableColumn property="centsPerKiloWatt" title="${message(code: 'cost_Center.centsPerKiloWatt.label', default: 'Cents Per KiloWatt')}" />
 					</tr>
 				</thead>
@@ -91,8 +90,6 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${cost_CenterInstance.id}">${fieldValue(bean: cost_CenterInstance, field: "costCenterName")}</g:link></td>
-					
-						<td>${fieldValue(bean: cost_CenterInstance, field: "budget")}</td>
 
 						<td>${fieldValue(bean: cost_CenterInstance, field: "centsPerKiloWatt")}</td>
 					

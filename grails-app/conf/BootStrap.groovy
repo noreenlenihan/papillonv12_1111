@@ -3,8 +3,12 @@ import shiro_test.Role
 import shiro_test.Server
 import shiro_test.User
 
+/*
+* Class for bootstrapping data when server is started (ie. dummy data)
+**/
 class BootStrap {
 
+	// define service to be invoked
 	def shiroSecurityService
 	
 		def init = { servletContext ->
@@ -18,7 +22,7 @@ class BootStrap {
 			admin.addToRoles(adminRole)
 			admin.save()
 	
-			// Create the user role
+			// Create the user role and add permissions
 			def userRole = new Role(name: "User")
 			userRole.addToPermissions("Home:index")
 			userRole.addToPermissions("Recommend:*")
@@ -48,11 +52,11 @@ class BootStrap {
 			user4.addToRoles(userRole)
 			user4.save()
 			
-			
+			// Create a server
 			def server1 = new Server(serverName: "dc1fl1rk1ht1", location: "UCD", floor: 1, rack: 2)
 			server1.save()
 			
-			
+			// Create some cost centers
 			def c1 = new Cost_Center(costCenterName: "Kevins Center", budget: 5000)
 			c1.save()
 			def c2 = new Cost_Center(costCenterName: "Lauras Center", budget: 5000)

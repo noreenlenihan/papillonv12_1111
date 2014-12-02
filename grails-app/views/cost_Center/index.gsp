@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Papillon.this</a>
+          <a class="navbar-brand" href="#">Papillon-Express</a>
         </div>
         <div class="navbar-collapse collapse">
         

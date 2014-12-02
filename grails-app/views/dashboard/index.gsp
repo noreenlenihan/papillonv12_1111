@@ -279,7 +279,7 @@
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-	
+	<!-- Testing  -->
 	<!--Users retrieved: ${user_results}
 	Cost centers retrieved: ${costc_results}
 	Cost center chosen: ${cost_center_chosen}

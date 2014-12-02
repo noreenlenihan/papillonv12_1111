@@ -23,8 +23,10 @@ import java.util.concurrent.*;
 @Transactional
 class AggregationResultsService {
 
+    // declare and initialize scheduler
     private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+    // method that retrieves all power data from all servers with papillon installed
     def serviceMethod() {
 
 	DataCenters dcs = new DataCenters();
@@ -66,8 +68,11 @@ class AggregationResultsService {
 							results += "key is " + key + " and innerkey is " + innerkey + " and power value is " + powervalue + " "			
 						}
 
+						// query Server table to find server with power estimates associated
 						Server s = Server.findByServerName(key)
+						// insert query to insert result data into Results Table
 						Result result1 = new Result(dateOfQuery:newDate, dailyTotalCents: totalDailyPower, metric_2: 3, metric_3: 1, metric_4: 2, servers: s)
+						// commit to db
 						result1.save()
 					}
 				}
@@ -85,6 +90,7 @@ class AggregationResultsService {
 
     }
 
+    // method for reformatting date
     def static Calendar dateToCalendar(Date date){
 	Calendar cal = Calendar.getInstance()
 	cal.setTime(date)
@@ -94,7 +100,7 @@ class AggregationResultsService {
 
   
 	
-
+    // Scheduler method that refreshes API call every 24 hours
     public void makeScheduledAPICall(){
 	final Runnable call = new Runnable(){
 		public void run() { 

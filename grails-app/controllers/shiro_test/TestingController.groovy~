@@ -23,10 +23,11 @@ class TestingController {
 						for(Iterator<HashMap<String, HashMap<Long, Double>>> hs = h.getPower(h.getTrackerId()).keySet().iterator(); hs.hasNext();){
 							String key = hs.next();
 							HashMap<Long, Double> value = h.getPower(h.getTrackerId()).get(key);
+							Map<Long, Double> values = new TreeMap<Long, Double>(value);
 
-							for(Iterator<Long> it = value.keySet().iterator(); it.hasNext();){
+							for(Iterator<Long> it = values.keySet().iterator(); it.hasNext();){
 								Long innerkey = it.next();
-								Double powervalue = value.get(innerkey);
+								Double powervalue = values.get(innerkey);
 								servers.add(key)
 								timestamps.add(innerkey)
 								powerratings.add(powervalue.toString())

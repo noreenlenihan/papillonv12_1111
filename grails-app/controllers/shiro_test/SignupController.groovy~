@@ -11,10 +11,8 @@ import org.apache.shiro.crypto.hash.Sha512Hash
 * Controller for registration
 **/
 class SignupController {
-    // define service to be invoked
     def shiroSecurityService
 
-    // index page function
     def index() {
         User user = new User()
         [user: user]
