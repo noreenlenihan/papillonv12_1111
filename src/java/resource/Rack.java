@@ -8,6 +8,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject;
 
 import connectionpackage.Connection;
 
+//class to create a rack
 public class Rack {
 	ArrayList<Host> hosts;
 	int rackId;
@@ -27,8 +28,12 @@ public class Rack {
 			this.rackId = rackId;
 			this.floorId = floorId;
 			this.dataCenterId = dataCenterId;
+			
+			//connect to API using ids
 			this.URL = "datacenters/" + dataCenterId + "/floors/" + floorId + "/racks/" + rackId;
 			JSONObject rackResults = connect.connect(connect, this.URL);
+			
+			//fill in fields with data from results
 			hosts = new ArrayList<Host>();
 			this.hosts = gethostdata(this.dataCenterId, this.floorId);
 			this.setName(rackResults.getString("name"));
@@ -43,7 +48,10 @@ public class Rack {
 	public ArrayList<Host> gethostdata(int dataCenterId, int floorId) {
 		
 		try {
+			//connect to API
 			JSONArray hostsList = connect.connectMulti(connect, this.URL + "/hosts");
+			
+			//get back list of hosts
 			for(int i = 0; i < hostsList.length(); i++){
 				JSONObject h = hostsList.getJSONObject(i);
 				hosts.add(new Host(dataCenterId, floorId, rackId, h.getInt("id")));
@@ -56,7 +64,8 @@ public class Rack {
 		return null;
 
 	}
-
+	
+	//getters and setters
 	public ArrayList<Host> getHosts() {
 		return hosts;
 
