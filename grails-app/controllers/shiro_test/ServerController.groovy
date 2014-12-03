@@ -1,10 +1,10 @@
 package shiro_test
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
+/* Automatically generated Server Controller*/
 @Transactional(readOnly = true)
 class ServerController {
 

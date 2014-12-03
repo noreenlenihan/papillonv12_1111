@@ -1,0 +1,10 @@
+package shiro_test
+
+/*
+* Controller for Cost center
+**/
+class Cost_CenterController {
+	static scaffold = true
+	//def index() { }
+   
+}

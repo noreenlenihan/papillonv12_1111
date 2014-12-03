@@ -24,7 +24,7 @@ import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
 
 /*
 * This controller class performs all the functions necessary to take in the data
-* returned from the Papillon API and manipulate it to populate the graphs
+* returned from the Papillon API and manipulate it to populate the graphs i.e. to create the dashboard
 */
 class DashboardController { 
 
