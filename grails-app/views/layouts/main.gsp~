@@ -9,7 +9,7 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
 
-    <title>Papillon.this</title>
+    <title>Papillon-Express</title>
 
     <!-- Bootstrap core CSS -->
      <asset:stylesheet src="bootstrap.min.css"/>
@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Papillon.this</a>
+          <a class="navbar-brand" href="/Shiro_test/home">Papillon-Express</a>
         </div>
         <div class="navbar-collapse collapse">
         
@@ -62,29 +62,27 @@
     <div class="jumbotron" style='background-color:#0A2929; color:#33CCCC; text-align:center;'>
       <div class="container" style='font-family:"Ubuntu-C"'>
       	<asset:image src="turquoise_butterfly.png" alt="Butterfly" width="80" height="80"/>
-        <h1>Papillon.this</h1>
-        <div style="color: white;"><p>Monitoring UCD and all that jazz</p></div>
-        <p><a class="btn btn-lg" role="button" style='background-color:#33CCCC; color:#0A2929;'>Register &raquo;</a></p>
+        <h1>Papillon-<em>Express</em></h1>
+        <div style="color: white;"><p>A Simple Data Center Management Tool for Businesses</p></div>
+        <p><a class="btn btn-lg" role="button" style='background-color:#33CCCC; color:#0A2929;' href="signup">Register &raquo;</a></p>
       </div>
     </div>
 
-    <div class="container" style='font-family:"Ubuntu-C"; background-color:#EBFAFA;' role="infotime">
+    <div class="container" style='font-family:"Ubuntu-C"; background-color:#EBFAFA; '>
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
           <h2>Administrator Panel</h2>
-          <p>Restricted Access area for administrators to create new departments, servers, and other database tables </p>
-          <p><a class="btn btn-default" href="admin" role="button">admin &raquo;</a></p>
+          <p>Restricted Access area for administrators to create new departments, users, admin, roles, permissions, servers, and other database tables </p>
+          <p><a class="btn btn-default" href="/Shiro_test/admin" role="button">Admin &raquo;</a></p>
         </div>
         <div class="col-md-4">
-          <h2>About Papillon.this</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>About Papillon-<em>Express</em></h2>
+          <p>This tool was developed by a team of MSc Conversion students as part of the module COMP47300 Cloud Software Project. The aim of Papillon-<em>Express</em> is to help businesses understand data center metrics and the power consumption/costs associated with their servers, and how it aligns to their budget. This tool further informs the IT/Finance Manager about the carbon footprint of its servers. Papillon-<em>Express</em> relies on the software monitoring API, Papillon, to provide its analyses.</p>
        </div>
         <div class="col-md-4">
-          <h2>Technology & Metrics</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Value</h2>
+          <p>Papillon-<em>Express</em> helps bridge the divide in communication between the IT and Finance/Accounting departments in organizations. Papillon-<em>Express</em> allows managers from any department to quickly and intuitively assess their servers' power and carbon costs, and evaluate periods when the budget has been exceeded. In this way, companies can easily learn how close their projections for power and carbon are to actual expenditure, without having to understand technical or confusing metrics.</p>
         </div>
       </div>
 
@@ -114,4 +112,4 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </body>
 </html>
-
+    

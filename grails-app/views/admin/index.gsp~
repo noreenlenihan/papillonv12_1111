@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Admin control panel">
     <link rel="icon" href="../../favicon.ico">
     <link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
 
@@ -61,7 +61,7 @@
 
     <div class="container" style='font-family:"Ubuntu-C"; background-color:#EBFAFA;'>
       <div>
-			<h1>Papillon-<em>Express</em> Admin Control Panel</h1>
+			<h1>Admin Control Panel</h1>
 			<p>Click on the controllers below to create, update, edit, or delete entities for Servers, Users, and to start the Papillon API.</p>
 
 			<div id="controller-list" role="navigation">

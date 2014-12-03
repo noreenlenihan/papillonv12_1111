@@ -10,15 +10,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: cost_CenterInstance, field: 'budget', 'error')} required">
-	<label for="budget">
-		<g:message code="cost_Center.budget.label" default="Budget" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="budget" type="number" value="${cost_CenterInstance.budget}" required=""/>
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: cost_CenterInstance, field: 'centsPerKiloWatt', 'error')} required">
 	<label for="centsPerKiloWatt">
 		<g:message code="cost_Center.centsPerKiloWatt.label" default="Cents per KiloWatt" />

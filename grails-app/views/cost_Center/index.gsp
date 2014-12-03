@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- List all Cost Centers gsp -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +11,7 @@
     <meta name="author" content="noreen_kevin">
     <link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
 
-    <title>Create Cost Centre</title>
+    <title>Cost Centre: Home</title>
 
 	<asset:stylesheet src="application.css"/>
 	<asset:javascript src="application.js"/>

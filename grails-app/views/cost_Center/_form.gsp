@@ -1,6 +1,6 @@
 <%@ page import="shiro_test.Cost_Center" %>
 
-
+<!-- Form for rendering all cost center attributes -->
 <div class="fieldcontain ${hasErrors(bean: cost_CenterInstance, field: 'costCenterName', 'error')} required">
 	<label for="costCenterName">
 		<g:message code="cost_Center.costCenterName.label" default="Cost Center Name" />

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+	<!-- Default index gsp -->
   	<title>Enter Papillon-Express</title>
   	<link rel="shortcut icon" href="${assetPath(src: 'butterfly_icon.gif')}" type="image/x-icon">
 	<asset:stylesheet src="fonts.css"/>
