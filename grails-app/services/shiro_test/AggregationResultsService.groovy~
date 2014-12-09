@@ -71,7 +71,7 @@ class AggregationResultsService {
 						// query Server table to find server with power estimates associated
 						Server s = Server.findByServerName(key)
 						// insert query to insert result data into Results Table
-						Result result1 = new Result(dateOfQuery:newDate, dailyTotalPower: totalDailyPower, metric_2: 3, metric_3: 1, metric_4: 2, servers: s)
+						Result result1 = new Result(dateOfQuery:newDate, dailyTotalPower: totalDailyPower, servers: s)
 						// commit to db
 						result1.save()
 					}

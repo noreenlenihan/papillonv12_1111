@@ -109,8 +109,22 @@ class DashboardController {
 			monthBudgetsArray.add(cost_center_chosen.novBudget * 100)
 			monthBudgetsArray.add(cost_center_chosen.decBudget * 100)
 
-			ArrayList<Server> servers_needed = new ArrayList<Server>();
-			servers_needed.add(servers_included.get(0))
+			String[] servers_needed = new String[servers_included.size()];
+
+			for(int x= 0; x < servers_included.size(); x++){
+				System.out.println("this server " + servers_included.get(x))
+				servers_needed[x] = servers_included.get(x).serverName
+			}
+			
+
+			String[] servers_needed_ids = new String[servers_included.size()];
+			for(int x= 0; x < servers_included.size(); x++){
+				def s = servers_included.get(x)
+				servers_needed_ids[x] = s.id
+			}
+
+
+			List<String> servers_in_cc = new ArrayList<String>(Arrays.asList(servers_needed_ids))
 
 			String [] arr = new String[1]
 
@@ -132,7 +146,7 @@ class DashboardController {
 				for(Floor f: d.getFloors()){
 					for(Rack rk: f.getRacks()){
 						for(Host h: rk.getHosts()){
-							for(Iterator<HashMap<String, HashMap<Long, Double>>> hs = h.getPower(h.getTrackerId()).keySet().iterator(); hs.hasNext() && arr.contains(h.getTrackerId());){
+							for(Iterator<HashMap<String, HashMap<Long, Double>>> hs = h.getPower(h.getTrackerId()).keySet().iterator(); hs.hasNext() && servers_needed.contains(h.getTrackerId());){
 								String key = hs.next();
 								HashMap<Long, Double> value = h.getPower(h.getTrackerId()).get(key);
 								Map<Long, Double> values = new TreeMap<Long, Double>(value);
@@ -236,7 +250,7 @@ class DashboardController {
 					monthForWeekGraph = calDateForWeekGraph.get(Calendar.MONTH)
 					monthBudgetForWeekGraph = monthBudgetsArray[monthForWeekGraph]
 					between('dateOfQuery', now-k, (now - k) + 1)
-					//inList('servers', arr)
+					inList('servers', servers_included)
 				}
 
 				if (weekresults.dailyTotalPower[0] != null) {
@@ -292,7 +306,7 @@ class DashboardController {
 					month = calDate.get(Calendar.MONTH)
 					monthBudget = monthBudgetsArray[month]
 					between('dateOfQuery', now-k, (now - k) + 1)
-					//inList('servers', arr)
+					inList('servers', servers_included)
 				}
 				
 				if (monthresults.dailyTotalPower[0] != null) {
@@ -348,7 +362,7 @@ class DashboardController {
 					monthForAnnualGraph = calDateForAnnualGraph.get(Calendar.MONTH)
 					monthBudgetForAnnualGraph = monthBudgetsArray[monthForAnnualGraph]
 					between('dateOfQuery', now-k, (now - k) + 1)
-					//inList('servers', arr)
+					inList('servers', servers_included)
 				}
 
 				if (yearresults.dailyTotalPower[0] != null) {
@@ -377,7 +391,7 @@ class DashboardController {
 
 
 			// list of key-value pairs to send to html page for use with grails template language
-			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: yearlyPowerCounter,
+			[centerInstanceList: centerInstance, User: currentUser, avgpower: 5, totalpower: 6, timestamps: timestamps, powerratings: powerratings, timestamplength: timestamps.size(), dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, yesterday: yesterday, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, server_ids: Arrays.toString(servers_needed_ids), costCenterCentsPerKw: costCenterCentsPerKw, totalDailyPowerCost: (double)Math.round(totalDailyPowerCost * 10000000)/10000000, dailyTimestampsLength: dailyGraphData.size(), totalDailyCarbon:  (double)Math.round(totalDailyCarbon * 10000000)/10000000, totalDailyPower: (double)Math.round(totalDailyPower * 10000000)/10000000, totalWeeklyPowerCost: totalWeeklyPowerCost, totalWeeklyPower: totalWeeklyPower, totalWeeklyCarbon:totalWeeklyCarbon, daysInMonth: daysInMonth, month: month, monthBudget: monthBudget, totalMonthlyPowerCost: totalMonthlyPowerCost, totalMonthlyPower: totalMonthlyPower, totalMonthlyCarbon: totalMonthlyCarbon, totalAnnualPowerCost: yearlyPowerCounter,
 totalAnnualPower: totalAnnualPower, totalAnnualCarbon: totalAnnualCarbon, weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData, alertslength: dailyAlertsData.size(), dailyTotalBudgetEvaluation: dailyTotalBudgetEvaluation, weeklyPowerCostCounter: weeklyPowerCostCounter, totalWeeklyBudgetDifference: totalWeeklyBudgetDifference, monthlyPowerCounter: monthlyPowerCounter, monthlyBudgetDiff: monthlyBudgetDiff, annualBudgetDiff: annualBudgetDiff, monthBudgetForDailyGraph: monthBudgetForDailyGraph]
 
 		}

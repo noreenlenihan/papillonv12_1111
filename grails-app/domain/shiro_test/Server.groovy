@@ -26,7 +26,7 @@ class Server {
 	
 	// Override toString() method
 	String toString(){
-		return "dc1" + "fl1" +"rk1" + "ht1"
+		return serverName
 	}
 }
 

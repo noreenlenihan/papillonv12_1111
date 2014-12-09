@@ -280,7 +280,7 @@
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
 	<!-- Testing  -->
-	<!--Users retrieved: ${user_results}
+	Users retrieved: ${user_results}
 	Cost centers retrieved: ${costc_results}
 	Cost center chosen: ${cost_center_chosen}
 	First cc redirect: ${first_cc}
@@ -290,6 +290,7 @@
 	Year ago: ${yearAgo}
 	Servers in this cost center: ${servers_included}
 	Servers needed: ${servers_needed}
+	Servers ids: ${server_ids}
 	This Cost Center's cents pwe kw: ${costCenterCentsPerKw}
 	Daily Timestamps length: ${dailyTimestampsLength}
 	Days in month: ${daysInMonth}
@@ -299,7 +300,7 @@
 	weekResults: ${weekresults}
 	dailyAlerts: ${dailyAlertsData} 
 	monthbud: ${monthBudgetForDailyGraph}
-	Yesterday: ${yesterday} -->
+	Yesterday: ${yesterday}
 
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">

@@ -31,10 +31,6 @@ class AggregationResultsService {
 
 	DataCenters dcs = new DataCenters();
 
-	String [] arr = new String[1]
-
-	arr[0] = "dc1fl1rk1ht1"
-
 	String results = "";
 	ArrayList<Double> allPowerConsumptionEntries = new ArrayList<Double>();
 	ArrayList<String> servers = new ArrayList<String>();
@@ -45,7 +41,7 @@ class AggregationResultsService {
 		for(Floor f: d.getFloors()){
 			for(Rack rk: f.getRacks()){
 				for(Host h: rk.getHosts()){
-					for(Iterator<HashMap<String, HashMap<Long, Double>>> hs = h.getPower(h.getTrackerId()).keySet().iterator(); hs.hasNext() && arr.contains(h.getTrackerId());){
+					for(Iterator<HashMap<String, HashMap<Long, Double>>> hs = h.getPower(h.getTrackerId()).keySet().iterator(); hs.hasNext();){
 						String key = hs.next();
 						HashMap<Long, Double> value = h.getPower(h.getTrackerId()).get(key);
 						Map<Long, Double> values = new TreeMap<Long, Double>(value);
