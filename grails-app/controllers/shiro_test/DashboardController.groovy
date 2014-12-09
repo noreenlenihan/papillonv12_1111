@@ -239,15 +239,15 @@ class DashboardController {
 					//inList('servers', arr)
 				}
 
-				if (weekresults.dailyTotalCents[0] != null) {
-					totalWeeklyPower += weekresults.dailyTotalCents[0]
-					weeklyPowerCostCounter += weekresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (weekresults.dailyTotalPower[0] != null) {
+					totalWeeklyPower += weekresults.dailyTotalPower[0]
+					weeklyPowerCostCounter += weekresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 				weeklyBudgetCounter += (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0
 
 				double tempDailyPowerCost = 0
-				if (weekresults.dailyTotalCents[0] != null){
-					tempDailyPowerCost = weekresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (weekresults.dailyTotalPower[0] != null){
+					tempDailyPowerCost = weekresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 				weekArray.add([now - k, tempDailyPowerCost, (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0])
 				cumulativeWeekArray.add([now-k, weeklyPowerCostCounter, weeklyBudgetCounter])
@@ -295,15 +295,15 @@ class DashboardController {
 					//inList('servers', arr)
 				}
 				
-				if (monthresults.dailyTotalCents[0] != null) {
-					totalMonthlyPower += monthresults.dailyTotalCents[0]
-					monthlyPowerCounter += monthresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (monthresults.dailyTotalPower[0] != null) {
+					totalMonthlyPower += monthresults.dailyTotalPower[0]
+					monthlyPowerCounter += monthresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 				monthlyBudgetCounter += (monthBudget/daysInMonth)
 
 				double tempMonthlyPowerCost = 0
-				if (monthresults.dailyTotalCents[0] != null){
-					tempMonthlyPowerCost = monthresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (monthresults.dailyTotalPower[0] != null){
+					tempMonthlyPowerCost = monthresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 				cumulativeMonthArray.add([now - k, monthlyPowerCounter, monthlyBudgetCounter])
 
@@ -351,15 +351,15 @@ class DashboardController {
 					//inList('servers', arr)
 				}
 
-				if (yearresults.dailyTotalCents[0] != null) {
-					totalAnnualPower += yearresults.dailyTotalCents[0]
-					yearlyPowerCounter += yearresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (yearresults.dailyTotalPower[0] != null) {
+					totalAnnualPower += yearresults.dailyTotalPower[0]
+					yearlyPowerCounter += yearresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 				yearlyBudgetCounter += (monthBudgetForAnnualGraph/daysInMonthForAnnualGraph)
 
 				double tempYearlyPowerCost = 0
-				if (yearresults.dailyTotalCents[0] != null){
-					tempYearlyPowerCost = yearresults.dailyTotalCents[0] * costCenterCentsPerKw
+				if (yearresults.dailyTotalPower[0] != null){
+					tempYearlyPowerCost = yearresults.dailyTotalPower[0] * costCenterCentsPerKw
 				}
 
 				cumulativeYearArray.add([now - k, yearlyPowerCounter,yearlyBudgetCounter])

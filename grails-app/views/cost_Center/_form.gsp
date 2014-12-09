@@ -256,7 +256,7 @@
 		
 	</label>
 	<g:select style="width:400px" name="servers" id="select-to" multiple size="5" from="${cost_CenterInstance?.servers}" multiple="multiple" optionKey="id" size="5" value="${cost_CenterInstance?.servers*.id}" class="many-to-many"/>
- 	<p style="margin-left:300px;"><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections of they won't be entered! </em></p>
+ 	<p style="margin-left:300px;"><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections or they won't be entered! </em></p>
 	</div>
  
   </fieldset>
@@ -291,7 +291,7 @@
 		
 	</label>
 	<g:select style="width:400px" id="select-to2" name="users" from="${cost_CenterInstance?.users}" multiple="multiple" optionKey="id" size="5" value="${cost_CenterInstance?.users*.id}" class="many-to-many"/>
- 	<p style="margin-left:300px;""><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections of they won't be entered! </em></p>
+ 	<p style="margin-left:300px;""><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections or they won't be entered! </em></p>
  	</div>
 </fieldset>
 

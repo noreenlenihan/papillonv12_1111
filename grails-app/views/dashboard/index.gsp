@@ -129,7 +129,7 @@
 		  </button>
 		  <ul class="dropdown-menu" style="width:500px;" role="menu">
 		    <g:each in="${dailyAlertsData}">
-		    <li style="padding:10px;" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'" onclick="location.href = '/Shiro_test/recommend';">Budget exceeded by $${it[1]} on ${it[0]}</li>
+		    <li style="padding:10px;" onMouseOver="this.style.backgroundColor='#FFCACA'" onMouseOut="this.style.backgroundColor='white'" onclick="location.href = '/Shiro_test/recommend';">Budget exceeded by ${it[1]} cents on ${it[0]}</li>
 		    <li class="divider"></li>
 		    </g:each>
 		  </ul>

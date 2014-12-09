@@ -16,7 +16,7 @@ class Result {
 	// define relationships with other models
 	static belongsTo = [servers: Server]
         
-	// define 
+	// define ordering of attributes when rendered in forms, etc
 	static constraints = {
 		
 		dateOfQuery()
@@ -26,6 +26,7 @@ class Result {
 		metric_4()
         }
 	
+	// Override toString() method
 	String toString(){
 		return dailyTotalCents
 	}

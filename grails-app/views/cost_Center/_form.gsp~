@@ -1,6 +1,6 @@
 <%@ page import="shiro_test.Cost_Center" %>
 
-
+<!-- Form for rendering all cost center attributes -->
 <div class="fieldcontain ${hasErrors(bean: cost_CenterInstance, field: 'costCenterName', 'error')} required">
 	<label for="costCenterName">
 		<g:message code="cost_Center.costCenterName.label" default="Cost Center Name" />
@@ -256,7 +256,7 @@
 		
 	</label>
 	<g:select style="width:400px" name="servers" id="select-to" multiple size="5" from="${cost_CenterInstance?.servers}" multiple="multiple" optionKey="id" size="5" value="${cost_CenterInstance?.servers*.id}" class="many-to-many"/>
- 	<p style="margin-left:300px;"><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections of they won't be entered! </em></p>
+ 	<p style="margin-left:300px;"><em> Note: Use <strong style="color:red"> ctrl+click </strong> or <strong style="color:red">ctrl+shift </strong> to highlight selections or they won't be entered! </em></p>
 	</div>
  
   </fieldset>
