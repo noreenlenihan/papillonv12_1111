@@ -447,6 +447,9 @@ class DashboardController {
 
 			}
 
+			//Aggregate daily, weekly, monthly and yearly total values across all servers
+			// for purposes of table graphs
+
 			double overallTotalDailyPower = 0
 			double overallTotalDailyPowerCost = 0
 			double overallTotalDailyCarbon = 0
