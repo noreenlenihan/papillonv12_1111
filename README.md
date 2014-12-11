@@ -1,19 +1,21 @@
-Papillon.Express Version 1.0 02/12/2014
+Papillon-Express Version 1.0 02/12/2014
 
 GENERAL USAGE NOTES
 ======================================================================
 
-- Papillon.Express allows users to register and create a cost centre based on servers which are running Papillon.
+- Papillon-Express allows users to register and create a cost centre based on servers which are running Papillon.
 
 - Users can then see their actual power and carbon usage versus their budged amount on a daily, weekly, monthly and yearly basis.
 
-- Users are notified if usage rises above budgeted amount and given suggestions on how to improve power efficiency.
+- Users are notified if usage rises above budgeted amount per day and given suggestions on how to improve power efficiency.
 
-- Administrators have hightened privledges with allow editing of servers.
+- Administrators have heightened privileges such as allow creation, editing, and deletion of servers, cost centers, users, etc and starting the API Scheduler.
+
+- For more detailed information on how to get the most out of Papillon-Express, see the official docs included in zip folder.
 
 ======================================================================
 
-Papillon.Express can be reached at:
+Papillon-Express can be reached at:
 
 COMP47300 Cloud Software Project Group 5
 Sharon McHugh - sharon.mc-hugh@ucdconnect.ie
@@ -23,8 +25,8 @@ Noreen Lenihan - noreen.lenihan@ucdconnect.ie
 
 ======================================================================
 
-Copyright 2014 Papillon.Express. All rights reserved.
-Papillon.Express and its use are subject to a license agreement and are also subject to copyright, trademark, patent and/or other laws. 
+Copyright 2014 Papillon-Express. All rights reserved.
+Papillon-Express and its use are subject to a license agreement and are also subject to copyright, trademark, patent and/or other laws. 
 
 
 
