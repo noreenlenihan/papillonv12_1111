@@ -153,17 +153,78 @@ class DashboardController {
 			double totalWeeklyBudgetDifference = 0;
 			double monthlyBudgetDiff = 0;
 			double annualBudgetDiff = 0;
+			Double [] weeklyPowerCostTotalsAllServers = new Double [7];
+			
+			for(int i=0; i < weeklyPowerCostTotalsAllServers.length; i++){
+				weeklyPowerCostTotalsAllServers[i] = 0.0
+			}
+			Double [] weeklyPowerCostCounterTotalsAllServers = new Double [7];
+			for(int i=0; i < weeklyPowerCostCounterTotalsAllServers.length; i++){
+				weeklyPowerCostCounterTotalsAllServers[i] = 0.0
+			}
+
+			
+			System.out.println(Arrays.toString(weeklyPowerCostTotalsAllServers))
+			System.out.println(Arrays.toString(weeklyPowerCostCounterTotalsAllServers))
+
+			//obtain days in current month
+			Calendar calendarDate = dateToCalendar(new Date())
+			int daysInThisMonth = calendarDate.getActualMaximum(Calendar.DAY_OF_MONTH)
+			int daysInThisYear = calendarDate.getActualMaximum(Calendar.DAY_OF_YEAR)
+			System.out.println("Days in this month " + daysInThisMonth)
+			System.out.println("Days in this year " + daysInThisYear)
+
+			Double [] monthlyPowerCostTotalsAllServers = new Double [daysInThisMonth];
+			
+			for(int i=0; i < monthlyPowerCostTotalsAllServers.length; i++){
+				monthlyPowerCostTotalsAllServers[i] = 0.0
+			}
+			Double [] monthlyPowerCostCounterTotalsAllServers = new Double [daysInThisMonth];
+			for(int i=0; i < monthlyPowerCostCounterTotalsAllServers.length; i++){
+				monthlyPowerCostCounterTotalsAllServers[i] = 0.0
+			}
+
+			//initialize arrays for storing totals across server per year
+			Double [] annualPowerCostTotalsAllServers = new Double [daysInThisYear];
+			
+			for(int i=0; i < annualPowerCostTotalsAllServers.length; i++){
+				annualPowerCostTotalsAllServers[i] = 0.0
+			}
+			Double [] annualPowerCostCounterTotalsAllServers = new Double [daysInThisYear];
+			for(int i=0; i < annualPowerCostCounterTotalsAllServers.length; i++){
+				annualPowerCostCounterTotalsAllServers[i] = 0.0
+			}
 
 			Map<String, List<Double>> allPowerConsumptionEntriesPerServer = new HashMap<String, List<Double>>();
 			Map<String, List<Long>> timestampsPerServer = new HashMap<String, List<Long>>();
 			Map<String, List<Double>> powerratingsPerServer = new HashMap<String, List<Double>>();
+			def weeklyBudgetCounterList = []
+			def monthlyBudgetCounterList = []
+			def yearlyBudgetCounterList = []
+			int daysInMonthForWeekGraph = 0;
+			double monthBudgetForWeekGraph = 0;
+			double monthBudget = 0;
+			int daysInMonth = 0;
+			def monthBudgetForAnnualGraphList = []
+			def daysInMonthForAnnualGraphList = []
+			def daysInMonthList = []
+			def monthBudgetList = []
+			def monthBudgetForWeekGraphList = []
+			def daysInMonthForWeekGraphList = []
 
 
 			//Get data from API for each server
 			for(int s = 0; s < servers_needed.length; s++){
 				System.out.println("Processing server " + servers_needed[s])
-
-				
+				weeklyBudgetCounterList = []
+				monthlyBudgetCounterList = []
+				yearlyBudgetCounterList = []
+				monthBudgetForAnnualGraphList = []
+				daysInMonthForAnnualGraphList = []
+				daysInMonthList = []
+				monthBudgetList = []
+				monthBudgetForWeekGraphList = []
+				daysInMonthForWeekGraphList = []
 				ArrayList<Double> allPowerConsumptionEntries = new ArrayList<Double>();
 				ArrayList<String> servers = new ArrayList<String>();
 				ArrayList<Long> timestamps = new ArrayList<Long>();
@@ -276,22 +337,20 @@ class DashboardController {
 				def totalWeeklyPower = 0
 				def totalWeeklyCarbon = 0
 				Calendar calDateForWeekGraph;
-				int daysInMonthForWeekGraph = 0;
 				int monthForWeekGraph = 0;
-				double monthBudgetForWeekGraph = 0;
-
-			
 				def weeklyPowerCostCounter = 0
 				def weeklyBudgetCounter = 0
 				def now = new Date()
-				for(def k=7; k >= 0; k--){
+				for(def k=7; k > 0; k--){
 					def this_date = now - k
 					def weekresults = Result.withCriteria{
 			
 						calDateForWeekGraph = dateToCalendar(now-k)
 						daysInMonthForWeekGraph = calDateForWeekGraph.getActualMaximum(Calendar.DAY_OF_MONTH)
+						daysInMonthForWeekGraphList.add(daysInMonthForWeekGraph)
 						monthForWeekGraph = calDateForWeekGraph.get(Calendar.MONTH)
 						monthBudgetForWeekGraph = monthBudgetsArray[monthForWeekGraph]
+						monthBudgetForWeekGraphList.add(monthBudgetForWeekGraph)
 						between('dateOfQuery', now-k, (now -k) + 1)
 						eq('servers', servers_included[s])
 					}
@@ -303,19 +362,24 @@ class DashboardController {
 						weeklyPowerCostCounter += weekresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
 					weeklyBudgetCounter += (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0
+					weeklyBudgetCounterList.add(weeklyBudgetCounter)
 
+					System.out.println("Weekly budget counter " + weeklyBudgetCounterList)
 					double tempDailyPowerCost = 0
 					if (weekresults.dailyTotalPower[0] != null){
 						tempDailyPowerCost = weekresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
 
-				
-					weekArray.add([this_date, tempDailyPowerCost, (monthBudgetForWeekGraph/(daysInMonthForWeekGraph/7.0)) /7.0])
-				
-					cumulativeWeekArray.add([this_date, weeklyPowerCostCounter, weeklyBudgetCounter])
+					System.out.println("first value " + weeklyPowerCostTotalsAllServers[k-1] + " second value " + tempDailyPowerCost)
+					def tempvalue = weeklyPowerCostTotalsAllServers[7-k] + tempDailyPowerCost
+					weeklyPowerCostTotalsAllServers[7-k] = tempvalue
+
+					def tempvalue2 = weeklyPowerCostCounterTotalsAllServers[7-k] + weeklyPowerCostCounter
+					weeklyPowerCostCounterTotalsAllServers[7-k] = tempvalue2
 
 				}
 
+				
 	
 				totalWeeklyCarbon = 0.527 * totalWeeklyPower
 
@@ -340,21 +404,23 @@ class DashboardController {
 				def totalMonthlyPower = 0
 				def totalMonthlyCarbon = 0
 				Calendar calDate;
-				int daysInMonth = 0;
+				daysInMonth = 0;
 				int month = 0;
-				double monthBudget = 0;
+				monthBudget = 0;
 				double monthlyPowerCounter = 0;
 				double monthlyBudgetCounter = 0
 
 			
-				for(def k=31; k >= 0; k--){
+				for(def k=daysInThisMonth; k > 0; k--){
 				
 					def monthresults = Result.withCriteria{
 			
 						calDate = dateToCalendar(now-k)
 						daysInMonth = calDate.getActualMaximum(Calendar.DAY_OF_MONTH)
+						daysInMonthList.add(daysInMonth)
 						month = calDate.get(Calendar.MONTH)
 						monthBudget = monthBudgetsArray[month]
+						monthBudgetList.add(monthBudget)
 						between('dateOfQuery', now-k, (now - k) + 1)
 						eq('servers', servers_included[s])
 					}
@@ -364,14 +430,17 @@ class DashboardController {
 						monthlyPowerCounter += monthresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
 					monthlyBudgetCounter += (monthBudget/daysInMonth)
-
+					monthlyBudgetCounterList.add(monthlyBudgetCounter)
 					double tempMonthlyPowerCost = 0
 					if (monthresults.dailyTotalPower[0] != null){
 						tempMonthlyPowerCost = monthresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
-					cumulativeMonthArray.add([now - k, monthlyPowerCounter, monthlyBudgetCounter])
 
-					monthArray.add([now - k, tempMonthlyPowerCost, monthBudget/daysInMonth])
+					def tempvalue = monthlyPowerCostTotalsAllServers[daysInThisMonth-k] + tempMonthlyPowerCost
+					monthlyPowerCostTotalsAllServers[daysInThisMonth-k] = tempvalue
+
+					def tempvalue2 = monthlyPowerCostCounterTotalsAllServers[daysInThisMonth-k] + monthlyPowerCounter
+					monthlyPowerCostCounterTotalsAllServers[daysInThisMonth-k] = tempvalue2
 
 				}
 
@@ -404,14 +473,16 @@ class DashboardController {
 			
 				double yearlyPowerCounter = 0
 				double yearlyBudgetCounter = 0
-				for(def k=365; k >= 0; k--){
+				for(def k=daysInThisYear; k > 0; k--){
 				
 					def yearresults = Result.withCriteria{
 			
 						calDateForAnnualGraph = dateToCalendar(now-k)
 						daysInMonthForAnnualGraph = calDateForAnnualGraph.getActualMaximum(Calendar.DAY_OF_MONTH)
+						daysInMonthForAnnualGraphList.add(daysInMonthForAnnualGraph)
 						monthForAnnualGraph = calDateForAnnualGraph.get(Calendar.MONTH)
 						monthBudgetForAnnualGraph = monthBudgetsArray[monthForAnnualGraph]
+						monthBudgetForAnnualGraphList.add(monthBudgetForAnnualGraph)
 						between('dateOfQuery', now-k, (now - k) + 1)
 						eq('servers', servers_included[s])
 					}
@@ -421,14 +492,17 @@ class DashboardController {
 						yearlyPowerCounter += yearresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
 					yearlyBudgetCounter += (monthBudgetForAnnualGraph/daysInMonthForAnnualGraph)
-
+					yearlyBudgetCounterList.add(yearlyBudgetCounter)
 					double tempYearlyPowerCost = 0
 					if (yearresults.dailyTotalPower[0] != null){
 						tempYearlyPowerCost = yearresults.dailyTotalPower[0] * costCenterCentsPerKw
 					}
 
-					cumulativeYearArray.add([now - k, yearlyPowerCounter,yearlyBudgetCounter])
-					yearArray.add([now - k,tempYearlyPowerCost, monthBudgetForAnnualGraph/daysInMonthForAnnualGraph])
+					def tempvalue = annualPowerCostTotalsAllServers[daysInThisYear-k] + tempYearlyPowerCost
+					annualPowerCostTotalsAllServers[daysInThisYear-k] = tempvalue
+
+					def tempvalue2 = annualPowerCostCounterTotalsAllServers[daysInThisYear-k] + yearlyPowerCounter
+					annualPowerCostCounterTotalsAllServers[daysInThisYear-k] = tempvalue2
 
 				}
 
@@ -447,9 +521,32 @@ class DashboardController {
 
 			}
 
-			//Aggregate daily, weekly, monthly and yearly total values across all servers
-			// for purposes of table graphs
+			def today = new Date()
+			//new week graphs for all servers
+			for(def k=7; k > 0; k--){
+				weekArray.add([today - k, weeklyPowerCostTotalsAllServers[7-k], (monthBudgetForWeekGraphList[7 - k]/(daysInMonthForWeekGraphList[7 - k]/7.0)) /7.0])
+			
+				cumulativeWeekArray.add([today - k, weeklyPowerCostCounterTotalsAllServers[7-k], weeklyBudgetCounterList[7-k]])
 
+			}
+
+			//new monthly graphs aggregating totals for all servers
+			for(def k=daysInThisMonth; k > 0; k--){
+				cumulativeMonthArray.add([today - k, monthlyPowerCostCounterTotalsAllServers[daysInThisMonth - k], monthlyBudgetCounterList[daysInThisMonth - k]])
+
+				monthArray.add([today - k, monthlyPowerCostTotalsAllServers[daysInThisMonth - k], monthBudgetList[daysInThisMonth - k]/daysInMonthList[daysInThisMonth - k]])
+
+			}
+
+			//new yearly graphs aggregating totals for all servers
+			for(def k=daysInThisYear; k > 0; k--){
+				cumulativeYearArray.add([today - k, annualPowerCostCounterTotalsAllServers[daysInThisYear - k],yearlyBudgetCounterList[daysInThisYear - k]])
+				yearArray.add([today - k, annualPowerCostTotalsAllServers[daysInThisYear - k], monthBudgetForAnnualGraphList[daysInThisYear - k]/daysInMonthForAnnualGraphList[daysInThisYear - k]])
+			}
+
+
+			/*Aggregate daily, weekly, monthly and yearly total values across all servers
+			* or purposes of table graphs */
 			double overallTotalDailyPower = 0
 			double overallTotalDailyPowerCost = 0
 			double overallTotalDailyCarbon = 0
@@ -496,7 +593,7 @@ class DashboardController {
 
 			// list of key-value pairs to send to html page for use with grails template language
 			[centerInstanceList: centerInstance, User: currentUser, dailyGraphData: dailyGraphData, user_results: user_results.id, costc_results: costcenterstuff2, cost_center_chosen: cost_center_chosen, first_cc: first_cc, weeklyGraphData: weeklyGraphData, monthlyGraphData: monthArray, annualGraphData: yearArray, servers_included: servers_included, servers_needed: servers_needed, costCenterCentsPerKw: costCenterCentsPerKw, dailyTimestampsLength: dailyGraphData.size(), weeklyBudgetData: cumulativeWeekArray, monthlyBudgetData: cumulativeMonthArray, annualBudgetData: cumulativeYearArray, weekresults: weekArray, dailyAlertsData: dailyAlertsData, alertslength: dailyAlertsData.size(), dailyTotalBudgetEvaluation: dailyTotalBudgetEvaluation, totalWeeklyBudgetDifference: totalWeeklyBudgetDifference, monthlyBudgetDiff: monthlyBudgetDiff, annualBudgetDiff: annualBudgetDiff, totalDailyPowerList: totalDailyPowerList, totalDailyPowerCostList: totalDailyPowerCostList, totalDailyCarbonList: totalDailyCarbonList, totalWeeklyPowerList: totalWeeklyPowerList, totalWeeklyPowerCostList: totalWeeklyPowerCostList, totalWeeklyCarbonList: totalWeeklyCarbonList, totalMonthlyPowerCostList: totalMonthlyPowerCostList, totalMonthlyPowerList: totalMonthlyPowerList, totalMonthlyCarbonList: totalMonthlyCarbonList, totalAnnualPowerCostList: totalAnnualPowerCostList, totalAnnualPowerList: totalAnnualPowerList, totalAnnualCarbonList: totalAnnualCarbonList, overallTotalDailyPower: overallTotalDailyPower, overallTotalDailyPowerCost: overallTotalDailyPowerCost,
-overallTotalDailyCarbon: overallTotalDailyCarbon, overallTotalWeeklyPower: overallTotalWeeklyPower, overallTotalWeeklyPowerCost: overallTotalWeeklyPowerCost, overallTotalWeeklyCarbon: overallTotalWeeklyCarbon, overallTotalMonthlyPower: overallTotalMonthlyPower, overallTotalMonthlyPowerCost: overallTotalMonthlyPowerCost, overallTotalMonthlyCarbon: overallTotalMonthlyCarbon, overallTotalAnnualPower: overallTotalAnnualPower, overallTotalAnnualPowerCost: overallTotalAnnualPowerCost, overallTotalAnnualCarbon: overallTotalAnnualCarbon]
+overallTotalDailyCarbon: overallTotalDailyCarbon, overallTotalWeeklyPower: overallTotalWeeklyPower, overallTotalWeeklyPowerCost: overallTotalWeeklyPowerCost, overallTotalWeeklyCarbon: overallTotalWeeklyCarbon, overallTotalMonthlyPower: overallTotalMonthlyPower, overallTotalMonthlyPowerCost: overallTotalMonthlyPowerCost, overallTotalMonthlyCarbon: overallTotalMonthlyCarbon, overallTotalAnnualPower: overallTotalAnnualPower, overallTotalAnnualPowerCost: overallTotalAnnualPowerCost, overallTotalAnnualCarbon: overallTotalAnnualCarbon, weeklyPowerCostTotalsAllServers: Arrays.toString(weeklyPowerCostTotalsAllServers), weeklyPowerCostCounterTotalsAllServers: Arrays.toString(weeklyPowerCostCounterTotalsAllServers), monthlyPowerCostTotalsAllServers: Arrays.toString(monthlyPowerCostTotalsAllServers), monthlyPowerCostCounterTotalsAllServers: Arrays.toString(monthlyPowerCostCounterTotalsAllServers), annualPowerCostTotalsAllServers: Arrays.toString(annualPowerCostTotalsAllServers), annualPowerCostCounterTotalsAllServers: Arrays.toString(annualPowerCostCounterTotalsAllServers)]
 
 		}
 		}

@@ -319,7 +319,13 @@
 	month budget: ${monthBudget}
 	result1: ${res}
 	weekResults: ${weekresults}
-	dailyAlerts: ${dailyAlertsData} -->
+	dailyAlerts: ${dailyAlertsData}
+	weeklyPowerCostTotalsAllServers: ${weeklyPowerCostTotalsAllServers}
+	weeklyPowerCostCounterTotalsAllServers: ${weeklyPowerCostCounterTotalsAllServers}
+	monthlyPowerCostTotalsAllServers: ${monthlyPowerCostTotalsAllServers}
+	monthlyPowerCostCounterTotalsAllServers: ${monthlyPowerCostCounterTotalsAllServers}
+	annualPowerCostTotalsAllServers: ${annualPowerCostTotalsAllServers}
+	annualPowerCostCounterTotalsAllServers: ${annualPowerCostCounterTotalsAllServers}-->
 
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">
