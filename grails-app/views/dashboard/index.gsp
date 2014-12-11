@@ -300,7 +300,7 @@
             <h4>Budget Projection</h4>
             <span class="text-muted">UCD Colleges 2014</span>
         </div>
-	<!-- Testing  -->
+	<!-- Testing  
 	Users retrieved: ${user_results}
 	Cost centers retrieved: ${costc_results}
 	Cost center chosen: ${cost_center_chosen}
@@ -319,7 +319,7 @@
 	month budget: ${monthBudget}
 	result1: ${res}
 	weekResults: ${weekresults}
-	dailyAlerts: ${dailyAlertsData} 
+	dailyAlerts: ${dailyAlertsData} -->
 
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">
