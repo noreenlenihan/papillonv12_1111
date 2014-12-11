@@ -190,15 +190,22 @@
                 </thead>
                 <tbody>
                 
-		<g:each in="${servers_needed}">
+		<g:each status="m" in="${servers_needed}" var="unique_server">
 		<tr>
-                    <td>${it}</td>
-                    <td>${totalAnnualPower}</td>
-                    <td>${totalAnnualPowerCost}</td>
-                    <td>${totalAnnualCarbon}</td>
-                    <td>${annualBudgetDiff}</td>
+                    <td>${unique_server}</td>
+                    <td>${totalAnnualPowerList[m]}</td>
+                    <td>${totalAnnualPowerCostList[m]}</td>
+                    <td>${totalAnnualCarbonList[m]}</td>
+                    <td>n/a</td>
                 </tr>
                </g:each>
+		<tr>
+		    <td>All Servers</td>
+		    <td>${overallTotalAnnualPower}</td>
+		    <td>${overallTotalAnnualPowerCost}</td>
+		    <td>${overallTotalAnnualCarbon}</td>
+		    <td>${annualBudgetDiff}</td>
+		</tr>
 
                 </tbody>
             </table>
@@ -226,15 +233,22 @@
                 </thead>
                 <tbody>
                 
-		<g:each in="${servers_needed}">
+		<g:each status="k" in="${servers_needed}" var="each_server">
 		<tr>
-                    <td>${it}</td>
-                    <td>${totalMonthlyPower}</td>
-                    <td>${monthlyPowerCounter}</td>
-                    <td>${totalMonthlyCarbon}</td>
-                    <td>${monthlyBudgetDiff}</td>
+                    <td>${each_server}</td>
+                    <td>${totalMonthlyPowerList[k]}</td>
+                    <td>${totalMonthlyPowerCostList[k]}</td>
+                    <td>${totalMonthlyCarbonList[k]}</td>
+                    <td>n/a</td>
                 </tr>
                </g:each>
+		<tr>
+		    <td>All Servers</td>
+		    <td>${overallTotalMonthlyPower}</td>
+		    <td>${overallTotalMonthlyPowerCost}</td>
+		    <td>${overallTotalMonthlyCarbon}</td>
+		    <td>${monthlyBudgetDiff}</td>
+		</tr>
 
                 </tbody>
             </table>
@@ -260,15 +274,22 @@
                 </thead>
                 <tbody>
                 
-		<g:each in="${servers_needed}">
+		<g:each status="j" in="${servers_needed}" var="server">
 		<tr>
-                    <td>${it}</td>
-                    <td>${totalWeeklyPower}</td>
-                    <td>${weeklyPowerCostCounter}</td>
-                    <td>${totalWeeklyCarbon}</td>
-                    <td>${totalWeeklyBudgetDifference}</td>
+                    <td>${server}</td>
+                    <td>${totalWeeklyPowerList[j]}</td>
+                    <td>${totalWeeklyPowerCostList[j]}</td>
+                    <td>${totalWeeklyCarbonList[j]}</td>
+                    <td>n/a</td>
                 </tr>
                </g:each>
+		<tr>
+		    <td>All Servers</td>
+		    <td>${overallTotalWeeklyPower}</td>
+		    <td>${overallTotalWeeklyPowerCost}</td>
+		    <td>${overallTotalWeeklyCarbon}</td>
+		    <td>${totalWeeklyBudgetDifference}</td>
+		</tr>
 
                 </tbody>
             </table>
@@ -290,7 +311,7 @@
 	Year ago: ${yearAgo}
 	Servers in this cost center: ${servers_included}
 	Servers needed: ${servers_needed}
-	Servers ids: ${servers_needed_ids}
+	totalDailyPowerList: ${totalDailyPowerList}
 	This Cost Center's cents pwe kw: ${costCenterCentsPerKw}
 	Daily Timestamps length: ${dailyTimestampsLength}
 	Days in month: ${daysInMonth}
@@ -299,8 +320,6 @@
 	result1: ${res}
 	weekResults: ${weekresults}
 	dailyAlerts: ${dailyAlertsData} 
-	monthbud: ${monthBudgetForDailyGraph}
-	Yesterday: ${yesterday}
 
         <div class="table-responsive">
             <table style="width:800px; margin-left:100px"  class="table table-striped">
@@ -315,15 +334,22 @@
                 </thead>
                 <tbody>
                 
-		<g:each in="${servers_needed}">
+		<g:each status="i" in="${servers_needed}" var="item">
 		<tr>
-                    <td>${it}</td>
-                    <td>${totalDailyPower}</td>
-                    <td>${totalDailyPowerCost}</td>
-                    <td>${totalDailyCarbon}</td>
-                    <td>${dailyTotalBudgetEvaluation}</td>
+                    <td>${item}</td>
+                    <td>${totalDailyPowerList[i]}</td>
+                    <td>${totalDailyPowerCostList[i]}</td>
+                    <td>${totalDailyCarbonList[i]}</td>
+                    <td>n/a</td>
                 </tr>
                </g:each>
+		<tr>
+		    <td>All Servers</td>
+		    <td>${overallTotalDailyPower}</td>
+		    <td>${overallTotalDailyPowerCost}</td>
+		    <td>${overallTotalDailyCarbon}</td>
+		    <td>${dailyTotalBudgetEvaluation}</td>	
+		</tr>
 
                 </tbody>
             </table>
